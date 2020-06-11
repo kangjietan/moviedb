@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
@@ -43,6 +44,11 @@ class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  updateSearch: PropTypes.func.isRequired,
+  searchInput: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = state => ({
   searchInput: state.search.searchInput
