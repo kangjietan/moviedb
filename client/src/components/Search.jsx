@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { updateSearch } from '../actions/searchActions.js';
+import { updateSearch, searchAPI } from '../actions/searchActions.js';
 
 const Form = styled.form`
 `;
@@ -19,6 +19,7 @@ class Search extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleChange(event) {
@@ -33,12 +34,16 @@ class Search extends Component {
     });
   }
 
+  handleSearch() {
+    this.props.searchAPI(this.state.search);
+  }
+
   render() {
     return (
       <Form className="form-inline" >
         <input className="form-control mr-sm-2" name="search" placeholder="Search" value={this.state.search} onChange={this.handleChange} />
         <Link to={`/search?${this.props.searchInput}`}>
-          <button className="btn btn-outline-info">Search</button>
+          <button className="btn btn-outline-info" onClick={this.handleSearch}>Search</button>
         </Link>
       </Form>
     );
@@ -54,4 +59,4 @@ const mapStateToProps = state => ({
   searchInput: state.search.searchInput
 });
 
-export default connect(mapStateToProps, { updateSearch })(Search);
+export default connect(mapStateToProps, { updateSearch, searchAPI })(Search);
