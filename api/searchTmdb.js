@@ -19,11 +19,9 @@ const searchTmdb = (query) => {
   return new Promise((resolve, reject) => {
     axios(options)
       .then((response) => {
-        console.log(response.data);
         resolve(response.data);
       })
       .catch((err) => {
-        console.error(err);
         reject(err);
       });
   });
