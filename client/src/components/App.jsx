@@ -8,24 +8,16 @@ import ToWatchList from './ToWatchList.jsx';
 import Results from './Results.jsx'
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
-
   render() {
     return (
       <Router>
         <div>
           <Navigation />
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/search/:name" component={Results} />
-            <Route path="/watched" exact component={WatchedList} />
-            <Route path="/watch-list" exact component={ToWatchList} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/watched" component={WatchedList} />
+            <Route exact path="/watch-list" component={ToWatchList} />
+            <Route path="/search" component={Results} />
           </Switch>
         </div>
       </Router>
