@@ -52,6 +52,7 @@ class Search extends Component {
 
 Search.propTypes = {
   updateSearch: PropTypes.func.isRequired,
+  searchAPI: PropTypes.func.isRequired,
   searchInput: PropTypes.string.isRequired,
 };
 
