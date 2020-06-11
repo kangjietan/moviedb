@@ -60,4 +60,6 @@ const mapStateToProps = state => ({
   searchInput: state.search.searchInput
 });
 
-export default connect(mapStateToProps, { updateSearch, searchAPI })(Search);
+const mapDispatchToProps = { updateSearch, searchAPI };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
