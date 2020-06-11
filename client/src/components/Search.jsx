@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import styled from 'styled-components';
+
+import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { updateSearch } from '../actions/searchActions.js';
 
@@ -33,7 +36,9 @@ class Search extends Component {
     return (
       <Form className="form-inline" >
         <input className="form-control mr-sm-2" name="search" placeholder="Search" value={this.state.search} onChange={this.handleChange} />
-        <button className="btn btn-outline-info">Search</button>
+        <Link to={`/search?${this.props.searchInput}`}>
+          <button className="btn btn-outline-info">Search</button>
+        </Link>
       </Form>
     );
   }
