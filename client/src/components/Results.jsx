@@ -1,23 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
+import ResultMovie from './movies/ResultMovie.jsx';
 
 function Results(props) {
   const results = props.searchResults.results || [];
   return (
-    <div>
-      <h1>Results Page</h1>
-      <div>
-        {results.map((movie) => <div key={movie.id}>{movie.title}</div>)}
+    <div className="container">
+      <h2 className="m-2">{`Results for ${props.searchInput}`}</h2>
+      <div className="d-flex flex-row flex-wrap justify-content-center">
+        {results.map((movie) => <ResultMovie movie={movie} />)}
       </div>
     </div>
   );
 }
 
+Results.propTypes = {
+  searchResults: PropTypes.array.isRequired,
+  searchInput: PropTypes.string.isRequired,
+};
+
 const mapStateToProps = state => ({
-  searchResults: state.search.searchResults
+  searchResults: state.search.searchResults,
+  searchInput: state.search.searchInput,
 });
 
 export default connect(mapStateToProps)(Results);
