@@ -3,25 +3,23 @@ import styled from 'styled-components';
 
 import { Link } from "react-router-dom";
 
-const NavigationContainer = styled.div`
-  background-color: white;
-`;
+import Search from './Search.jsx';
 
-const Form = styled.form`
-  position: absolute;
-  right: 0;
+const NavigationContainer = styled.div`
+  background-color: #343a40;
 `;
 
 const NavHome = styled.div`
   height: 50%;
   width: 15%;
+  margin-right: 15px;
 `;
 
 function Navigation() {
   return (
     <NavigationContainer>
       <div className="container">
-        <nav className="navbar navbar-expand-md navbar-light">
+        <nav className="navbar navbar-expand-md navbar-dark">
           <NavHome>
             <Link to="/">
               <img src="./tmdb.svg" alt="home logo" />
@@ -31,7 +29,7 @@ function Navigation() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav">
+            <ul className="navbar-nav mr-5">
               <Link to="/watched" className="nav-item">
                 <li className="nav-link">Watched</li>
               </Link>
@@ -39,10 +37,7 @@ function Navigation() {
                 <li className="nav-link">To Watch</li>
               </Link>
             </ul>
-            <form className="form-inline">
-              <input className="form-control mr-sm-2" type="search" placeholder="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <Search />
           </div>
         </nav>
       </div>
