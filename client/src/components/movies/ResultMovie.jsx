@@ -58,4 +58,8 @@ function ResultMovie({ movie }) {
   );
 }
 
+ResultMovie.propTypes = {
+  movie: PropTypes.object.isRequired,
+};
+
 export default ResultMovie;
