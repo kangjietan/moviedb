@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import Modal from 'react-modal';
 import PropTypes from 'prop-types';
+
+import Modal from 'react-modal';
+
+import { connect } from 'react-redux';
+import { addWatchedMovie, addToWatchMovie } from '../../actions/movieActions.js';
 
 Modal.setAppElement('#app');
 
@@ -30,7 +34,7 @@ const modalStyle = {
   }
 };
 
-function ResultMovie({ movie }) {
+function ResultMovie({ movie, addWatchedMovie, addToWatchMovie }) {
   const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : "./no-image.jpg";
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -52,6 +56,8 @@ function ResultMovie({ movie }) {
             <div><strong>Overview: </strong>{movie.overview}</div>
             <div><strong>Voting: </strong>{`${movie.vote_average}/10, ${movie.vote_count} votes`}</div>
           </div>
+          <button className="btn btn-outline-primary mr-1" onClick={() => { addWatchedMovie(movie); }}>Add to Watched list</button>
+          <button className="btn btn-outline-primary" onClick={() => { addToWatchMovie(movie); }}>Add to Watch list</button>
         </div>
       </Modal>
     </div>
@@ -62,4 +68,6 @@ ResultMovie.propTypes = {
   movie: PropTypes.object.isRequired,
 };
 
-export default ResultMovie;
+const mapDispatchToProps = { addWatchedMovie, addToWatchMovie };
+
+export default connect(null, mapDispatchToProps)(ResultMovie);
