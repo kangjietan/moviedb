@@ -26,15 +26,12 @@ class Search extends Component {
     const { target } = event;
     const { name } = target;
     const { value } = target;
-    const { updateSearch } = this.props;
 
-    this.setState({ [name]: value }, () => {
-      const { search } = this.state;
-      updateSearch(search);
-    });
+    this.setState({ [name]: value });
   }
 
   handleSearch() {
+    this.props.updateSearch(this.state.search);
     this.props.searchAPI(this.state.search);
   }
 
