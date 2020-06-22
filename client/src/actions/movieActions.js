@@ -17,13 +17,13 @@ export const addToWatchMovie = (movie) => (dispatch) => {
 export const removeWatchedMovie = (movie) => (dispatch) => {
   dispatch({
     type: actions.REMOVE_WATCHED_MOVIE,
-    payload: movie.id,
+    payload: { id: movie.id },
   });
 };
 
 export const removeToWatchMovie = (movie) => (dispatch) => {
   dispatch({
     type: actions.REMOVE_TO_WATCH_MOVIE,
-    payload: movie.id,
+    payload: { id: movie.id },
   });
 };
