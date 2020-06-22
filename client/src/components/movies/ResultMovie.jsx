@@ -22,10 +22,17 @@ class ResultMovie extends Component {
     this.handleAddMovies = this.handleAddMovies.bind(this);
     this.setWatchedClicked = this.setWatchedClicked.bind(this);
     this.setToWatchClicked = this.setToWatchClicked.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   setModalIsOpen(status) {
     this.setState({ modalIsOpen: status });
+  }
+
+  closeModal() {
+    setTimeout(() => {
+      this.setState({ modalIsOpen: false });
+    }, 1500);
   }
 
   setWatchedClicked(status) {
@@ -105,9 +112,9 @@ class ResultMovie extends Component {
           <button
             className="btn btn-link"
             style={{ position: 'absolute', top: '0px', right: '0px' }}
-            onClick={() => this.setModalIsOpen(false)}>
+            onClick={this.closeModal}>
             X
-        </button>
+          </button>
           <div className="d-flex flex-row" id="modal-content">
             <div className="mr-2 modal-image" style={{ width: '40%' }}>
               <img src={imageUrl} className="img-fluid" />
