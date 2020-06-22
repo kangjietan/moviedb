@@ -32,7 +32,7 @@ class ResultMovie extends Component {
   closeModal() {
     setTimeout(() => {
       this.setState({ modalIsOpen: false });
-    }, 1500);
+    }, 250);
   }
 
   setWatchedClicked(status) {
