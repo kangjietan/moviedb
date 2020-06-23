@@ -1,58 +1,44 @@
 import * as actions from "../actions/types.js";
 
 let initialState = {
-  watchedList: [],
-  toWatchList: [],
+  watchedList: {},
+  toWatchList: {},
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case actions.ADD_WATCHED_MOVIE:
-      let watchedMovie = action.payload;
-
-      for (let i = 0; i < state.watchedList.length; i++) {
-        if (state.watchedList[i].id === watchedMovie.id) {
-          return {
-            ...state,
-          };
-        }
-      }
-
       return {
         ...state,
-        watchedList: [...state.watchedList, action.payload],
+        watchedList: Object.assign(state.watchedList, {
+          [action.payload.id]: action.payload,
+        }),
       };
 
     case actions.ADD_TO_WATCH_MOVIE:
-      let toWatchMovie = action.payload;
-
-      for (let i = 0; i < state.toWatchList.length; i++) {
-        if (state.toWatchList[i].id === toWatchMovie.id) {
-          return {
-            ...state,
-          };
-        }
-      }
-
       return {
         ...state,
-        toWatchList: [...state.toWatchList, action.payload],
+        toWatchList: Object.assign(state.toWatchList, {
+          [action.payload.id]: action.payload,
+        }),
       };
 
     case actions.REMOVE_WATCHED_MOVIE:
+      let newWatched = Object.assign(state.watchedList);
+      delete newWatched[action.payload.id];
+
       return {
         ...state,
-        watchedList: state.watchedList.filter(
-          (movie) => movie.id !== action.payload.id
-        ),
+        watchedList: newWatched,
       };
 
     case actions.REMOVE_TO_WATCH_MOVIE:
+      let newToWatch = Object.assign(state.toWatchList);
+      delete newToWatch[action.payload.id];
+
       return {
         ...state,
-        toWatchList: state.toWatchList.filter(
-          (movie) => movie.id !== action.payload.id
-        ),
+        toWatchList: newToWatch,
       };
 
     default:
