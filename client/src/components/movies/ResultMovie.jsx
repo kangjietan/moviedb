@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from 'react-modal';
@@ -25,6 +25,10 @@ class ResultMovie extends Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
+  componentDidMount() {
+    this.checkMovieInList();
+  }
+
   setModalIsOpen(status) {
     this.setState({ modalIsOpen: status });
   }
@@ -41,6 +45,12 @@ class ResultMovie extends Component {
 
   setToWatchClicked(status) {
     this.setState({ toWatchClicked: status });
+  }
+
+  checkMovieInList() {
+    const { movie, watchList, toWatchList } = this.props;
+    if (watchList[movie.id]) this.setState({ watchedClicked: true });
+    if (toWatchList[movie.id]) this.setState({ toWatchClicked: true });
   }
 
   handleAddMovies(event) {
@@ -152,6 +162,11 @@ ResultMovie.propTypes = {
   removeToWatchMovie: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  watchList: state.movie.watchedList,
+  toWatchList: state.movie.toWatchList,
+});
+
 const mapDispatchToProps = { addWatchedMovie, addToWatchMovie, removeWatchedMovie, removeToWatchMovie };
 
-export default connect(null, mapDispatchToProps)(ResultMovie);
+export default connect(mapStateToProps, mapDispatchToProps)(ResultMovie);
