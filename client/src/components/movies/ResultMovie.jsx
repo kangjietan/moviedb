@@ -90,10 +90,10 @@ class ResultMovie extends Component {
     const modalStyle = {
       overlay: {
         position: 'fixed',
-        top: '15vh',
+        top: '10vh',
         left: '15vw',
         right: '15vw',
-        bottom: '15vh',
+        bottom: '10vh',
       },
       content: {
         position: 'absolute',
