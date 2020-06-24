@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import Search from './Search.jsx';
 
@@ -30,12 +30,12 @@ function Navigation() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-5">
-              <Link to="/watched" className="nav-item">
+              <NavLink to="/watched" className="nav-item" activeStyle={{ color: "white" }}>
                 <li className="nav-link">Watched</li>
-              </Link>
-              <Link to="/watch-list" className="nav-item">
+              </NavLink>
+              <NavLink to="/watch-list" className="nav-item" activeStyle={{ color: "white" }}>
                 <li className="nav-link">To Watch</li>
-              </Link>
+              </NavLink>
             </ul>
             <Search />
           </div>
