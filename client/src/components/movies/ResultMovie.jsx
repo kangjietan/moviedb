@@ -135,17 +135,17 @@ class ResultMovie extends Component {
               <div><strong>Overview: </strong>{movie.overview}</div>
               <div><strong>Voting: </strong>{`${movie.vote_average}/10, ${movie.vote_count} votes`}</div>
               <button
-                className={watchedClicked ? "btn btn-outline-success mr-1 mt-1" : "btn btn-outline-primary mr-1 mt-1"}
+                className={`btn ${watchedClicked ? "btn-success" : "btn-outline-primary"} mr-1 mt-1`}
                 onClick={(e) => { this.handleAddMovies(e) }}
                 name="watched">
-                Add to Watched list
-            </button>
+                {watchedClicked ? "Added to Watched list" : "Add to Watched list"}
+              </button>
               <button
-                className={toWatchClicked ? "btn btn-outline-success mr-1 mt-1" : "btn btn-outline-primary mr-1 mt-1"}
+                className={`btn ${toWatchClicked ? "btn-success" : "btn-outline-primary"} mr-1 mt-1`}
                 onClick={(e) => { this.handleAddMovies(e) }}
                 name="toWatch">
-                Add to Watch list
-            </button>
+                {toWatchClicked ? "Added to Watch list" : "Add to Watch list"}
+              </button>
             </div>
           </div>
         </Modal>
@@ -160,6 +160,8 @@ ResultMovie.propTypes = {
   addToWatchMovie: PropTypes.func.isRequired,
   removeWatchedMovie: PropTypes.func.isRequired,
   removeToWatchMovie: PropTypes.func.isRequired,
+  watchList: PropTypes.array.isRequired,
+  toWatchList: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({
