@@ -160,8 +160,8 @@ ResultMovie.propTypes = {
   addToWatchMovie: PropTypes.func.isRequired,
   removeWatchedMovie: PropTypes.func.isRequired,
   removeToWatchMovie: PropTypes.func.isRequired,
-  watchList: PropTypes.array.isRequired,
-  toWatchList: PropTypes.array.isRequired,
+  watchList: PropTypes.object.isRequired,
+  toWatchList: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
