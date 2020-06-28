@@ -22,7 +22,6 @@ class ResultMovie extends Component {
     this.handleAddMovies = this.handleAddMovies.bind(this);
     this.setWatchedClicked = this.setWatchedClicked.bind(this);
     this.setToWatchClicked = this.setToWatchClicked.bind(this);
-    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -31,12 +30,6 @@ class ResultMovie extends Component {
 
   setModalIsOpen(status) {
     this.setState({ modalIsOpen: status });
-  }
-
-  closeModal() {
-    setTimeout(() => {
-      this.setState({ modalIsOpen: false });
-    }, 250);
   }
 
   setWatchedClicked(status) {
@@ -113,16 +106,18 @@ class ResultMovie extends Component {
     };
 
     return (
-      <div className="card m-3" style={{ width: '18rem' }} onClick={() => this.setModalIsOpen(true)}>
-        <img src={imageUrl} className="card-img-top" />
-        <div className="card-body">
-          <h4 className="card-title">{movie.title}</h4>
+      <div>
+        <div className="card m-3" style={{ width: '18rem' }} onClick={() => this.setModalIsOpen(true)}>
+          <img src={imageUrl} className="card-img-top" />
+          <div className="card-body">
+            <h4 className="card-title">{movie.title}</h4>
+          </div>
         </div>
         <Modal isOpen={modalIsOpen} onRequestClose={() => this.setModalIsOpen(false)} style={modalStyle}>
           <button
             className="btn btn-link"
             style={{ position: 'absolute', top: '0px', right: '0px' }}
-            onClick={this.closeModal}>
+            onClick={() => this.setModalIsOpen(false)}>
             X
           </button>
           <div className="d-flex flex-row" id="modal-content">
