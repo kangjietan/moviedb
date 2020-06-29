@@ -2,7 +2,7 @@ const express = require("express");
 
 const path = require("path");
 
-const searchTmbd = require("../api/searchTmdb.js");
+const tmdb = require("../api/searchTmdb.js");
 
 const app = express();
 
@@ -12,7 +12,20 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 
 app.get("/tmdb/search", (req, res) => {
   const { query } = req.query;
-  searchTmbd(query)
+  tmdb
+    .searchMovies(query)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
+});
+
+app.get("/tmdb/genres", (req, res) => {
+  tmdb
+    .getGenres()
     .then((response) => {
       res.json(response);
     })
