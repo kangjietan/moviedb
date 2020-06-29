@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import { connect } from 'react-redux';
+import { genresFromAPI } from '../actions/searchActions.js';
+
 import Navigation from './Navigation.jsx';
 import Home from './Home.jsx';
 import WatchedList from './WatchedList.jsx';
@@ -8,6 +11,9 @@ import ToWatchList from './ToWatchList.jsx';
 import Results from './Results.jsx'
 
 class App extends Component {
+  componentDidMount() {
+    this.props.genresFromAPI();
+  }
   render() {
     return (
       <Router>
@@ -25,4 +31,6 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = { genresFromAPI };
+
+export default connect(null, mapDispatchToProps)(App);
