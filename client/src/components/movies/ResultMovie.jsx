@@ -76,9 +76,11 @@ class ResultMovie extends Component {
 
   render() {
     const { watchedClicked, toWatchClicked, modalIsOpen } = this.state;
-    const { movie } = this.props;
+    const { movie, genres } = this.props;
 
     const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : "./no-image.jpg";
+
+    let movieGenres = movie.genre_ids.map((id) => genres[id]);
 
     const modalStyle = {
       overlay: {
@@ -129,6 +131,7 @@ class ResultMovie extends Component {
               <div><strong>Release date: </strong>{movie.release_date}</div>
               <div><strong>Overview: </strong>{movie.overview}</div>
               <div><strong>Voting: </strong>{`${movie.vote_average}/10, ${movie.vote_count} votes`}</div>
+              <div><strong>Genres: </strong>{movieGenres.join(', ')}</div>
               <button
                 className={`btn ${watchedClicked ? "btn-success" : "btn-outline-primary"} mr-1 mt-1`}
                 onClick={(e) => { this.handleAddMovies(e) }}
@@ -162,6 +165,7 @@ ResultMovie.propTypes = {
 const mapStateToProps = state => ({
   watchList: state.movie.watchedList,
   toWatchList: state.movie.toWatchList,
+  genres: state.search.genres,
 });
 
 const mapDispatchToProps = { addWatchedMovie, addToWatchMovie, removeWatchedMovie, removeToWatchMovie };
