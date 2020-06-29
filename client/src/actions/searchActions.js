@@ -25,3 +25,24 @@ export const searchAPI = (query) => (dispatch) => {
       console.log(err);
     });
 };
+
+export const genresFromAPI = () => (dispatch) => {
+  axios
+    .get(`${serverUrl}/tmdb/genres`)
+    .then((response) => {
+      const data = response.data.genres;
+      let formattedData = {};
+
+      data.forEach((genre) => {
+        formattedData[genre.id] = genre.name;
+      });
+
+      dispatch({
+        type: actions.GENRES_FROM_API,
+        payload: formattedData,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

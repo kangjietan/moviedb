@@ -1,6 +1,7 @@
 // Search reducer
 export const UPDATE_SEARCH = "UPDATE_SEARCH";
 export const SEARCH_API = "SEARCH_API";
+export const GENRES_FROM_API = "GENRES_FROM_API";
 
 // Movie reducer
 export const ADD_WATCHED_MOVIE = "ADD_WATCHED_MOVIE";
