@@ -109,7 +109,7 @@ class ResultMovie extends Component {
 
     return (
       <div>
-        <div className="card m-3" style={{ width: '18rem' }} onClick={() => this.setModalIsOpen(true)}>
+        <div className="card m-3" style={{ width: '18rem', cursor: 'pointer' }} onClick={() => this.setModalIsOpen(true)}>
           <img src={imageUrl} className="card-img-top" />
           <div className="card-body">
             <h4 className="card-title">{movie.title}</h4>
@@ -131,7 +131,7 @@ class ResultMovie extends Component {
               <div><strong>Release date: </strong>{movie.release_date}</div>
               <div><strong>Overview: </strong>{movie.overview}</div>
               <div><strong>Voting: </strong>{`${movie.vote_average}/10, ${movie.vote_count} votes`}</div>
-              <div><strong>Genres: </strong>{movieGenres.join(', ')}</div>
+              <div><strong>Genres: </strong>{movieGenres.join(', ') || '-'}</div>
               <button
                 className={`btn ${watchedClicked ? "btn-success" : "btn-outline-primary"} mr-1 mt-1`}
                 onClick={(e) => { this.handleAddMovies(e) }}
