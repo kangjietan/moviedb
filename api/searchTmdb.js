@@ -50,7 +50,31 @@ const getGenres = () => {
   });
 };
 
+const getTrailer = (movieID) => {
+  const url = `https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${TMDB_API_KEY}&language=en-US`;
+
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: TMDB_API_KEY,
+      "X-Requested-With": "XMLHttpRequest",
+    },
+    url,
+  };
+
+  return new Promise((resolve, reject) => {
+    axios(options)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 module.exports = {
   searchMovies,
   getGenres,
+  getTrailer,
 };
