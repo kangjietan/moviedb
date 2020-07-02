@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from 'react-modal';
+import axios from 'axios';
 
 import { connect } from 'react-redux';
 import { addWatchedMovie, addToWatchMovie, removeWatchedMovie, removeToWatchMovie } from '../../actions/movieActions.js';
@@ -16,6 +17,8 @@ class ResultMovie extends Component {
       modalIsOpen: false,
       watchedClicked: false,
       toWatchClicked: false,
+      serverUrl: 'http://localhost:3000',
+      movieTrailerUrl: '',
     }
 
     this.setModalIsOpen = this.setModalIsOpen.bind(this);
@@ -26,6 +29,25 @@ class ResultMovie extends Component {
 
   componentDidMount() {
     this.checkMovieInList();
+    this.getYouTubeTrailer();
+  }
+
+  checkMovieInList() {
+    const { movie, watchList, toWatchList } = this.props;
+    if (watchList[movie.id]) this.setState({ watchedClicked: true });
+    if (toWatchList[movie.id]) this.setState({ toWatchClicked: true });
+  }
+
+  getYouTubeTrailer() {
+    const { serverUrl } = this.state;
+    const { movie } = this.props;
+    axios.get(`${serverUrl}/tmbd/movie/${movie.id}/trailer/`)
+      .then((response) => {
+        this.setState({ movieTrailerUrl: response.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   setModalIsOpen(status) {
@@ -38,12 +60,6 @@ class ResultMovie extends Component {
 
   setToWatchClicked(status) {
     this.setState({ toWatchClicked: status });
-  }
-
-  checkMovieInList() {
-    const { movie, watchList, toWatchList } = this.props;
-    if (watchList[movie.id]) this.setState({ watchedClicked: true });
-    if (toWatchList[movie.id]) this.setState({ toWatchClicked: true });
   }
 
   handleAddMovies(event) {
@@ -75,11 +91,10 @@ class ResultMovie extends Component {
   }
 
   render() {
-    const { watchedClicked, toWatchClicked, modalIsOpen } = this.state;
+    const { watchedClicked, toWatchClicked, modalIsOpen, movieTrailerUrl } = this.state;
     const { movie, genres } = this.props;
 
     const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : "./no-image.jpg";
-
     let movieGenres = movie.genre_ids.map((id) => genres[id]);
 
     const modalStyle = {
@@ -145,6 +160,9 @@ class ResultMovie extends Component {
                 {toWatchClicked ? "Added to Watch list" : "Add to Watch list"}
               </button>
             </div>
+          </div>
+          <div>
+            <iframe width="420" height="315" title="trailer" src={`https://www.youtube.com/embed/${movieTrailerUrl}`} />
           </div>
         </Modal>
       </div>
