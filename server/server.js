@@ -18,7 +18,7 @@ app.get("/tmdb/search", (req, res) => {
       res.json(response);
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
       res.json(err);
     });
 });
@@ -30,8 +30,24 @@ app.get("/tmdb/genres", (req, res) => {
       res.json(response);
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
       res.json(err);
+    });
+});
+
+app.get("/tmbd/movie/:id/trailer", (req, res) => {
+  const { id } = req.params;
+  tmdb
+    .getTrailer(id)
+    .then((response) => {
+      let youtubeUrl = "";
+      response.results.forEach((item) => {
+        if (item.site === "YouTube") youtubeUrl = item.key;
+      });
+      res.json(youtubeUrl);
+    })
+    .catch((err) => {
+      console.error(err);
     });
 });
 
