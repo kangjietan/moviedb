@@ -14,7 +14,8 @@ class ResultMovie extends Component {
     super(props);
 
     this.state = {
-      modalIsOpen: false,
+      contentModalIsOpen: false,
+      trailerModalIsOpen: false,
       watchedClicked: false,
       toWatchClicked: false,
       serverUrl: 'http://localhost:3000',
@@ -50,8 +51,8 @@ class ResultMovie extends Component {
       });
   }
 
-  setModalIsOpen(status) {
-    this.setState({ modalIsOpen: status });
+  setModalIsOpen(status, modal) {
+    this.setState({ [`${modal}ModalIsOpen`]: status });
   }
 
   setWatchedClicked(status) {
@@ -91,13 +92,13 @@ class ResultMovie extends Component {
   }
 
   render() {
-    const { watchedClicked, toWatchClicked, modalIsOpen, movieTrailerUrl } = this.state;
+    const { watchedClicked, toWatchClicked, contentModalIsOpen, trailerModalIsOpen, movieTrailerUrl } = this.state;
     const { movie, genres } = this.props;
 
     const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : "./no-image.jpg";
     let movieGenres = movie.genre_ids.map((id) => genres[id]);
 
-    const modalStyle = {
+    const contentModalStyle = {
       overlay: {
         position: 'fixed',
         top: '10vh',
@@ -122,19 +123,44 @@ class ResultMovie extends Component {
       }
     };
 
+    const trailerModalStyle = {
+      overlay: {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        right: '0',
+        bottom: '0',
+        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+      },
+      content: {
+        position: 'absolute',
+        top: '5vh',
+        left: '10vh',
+        right: '10vh',
+        bottom: '5vh',
+        border: '1px solid #ccc',
+        background: '#fff',
+        overflow: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        borderRadius: '4px',
+        outline: 'none',
+        padding: '20px',
+      }
+    };
+
     return (
       <div>
-        <div className="card m-3" style={{ width: '18rem', cursor: 'pointer' }} onClick={() => this.setModalIsOpen(true)}>
+        <div className="card m-3" style={{ width: '18rem', cursor: 'pointer' }} onClick={() => this.setModalIsOpen(true, 'content')}>
           <img src={imageUrl} className="card-img-top" />
           <div className="card-body">
             <h4 className="card-title">{movie.title}</h4>
           </div>
         </div>
-        <Modal isOpen={modalIsOpen} onRequestClose={() => this.setModalIsOpen(false)} style={modalStyle}>
+        <Modal isOpen={contentModalIsOpen} onRequestClose={() => this.setModalIsOpen(false, 'content')} style={contentModalStyle}>
           <button
             className="btn btn-link"
             style={{ position: 'absolute', top: '0px', right: '0px' }}
-            onClick={() => this.setModalIsOpen(false)}>
+            onClick={() => this.setModalIsOpen(false, 'content')}>
             X
           </button>
           <div className="d-flex flex-row" id="modal-content">
@@ -144,26 +170,43 @@ class ResultMovie extends Component {
             <div className="modal-info" style={{ width: '55%' }}>
               <div><strong>Title: </strong>{movie.title}</div>
               <div><strong>Release date: </strong>{movie.release_date}</div>
-              <div><strong>Overview: </strong>{movie.overview}</div>
-              <div><strong>Voting: </strong>{`${movie.vote_average}/10, ${movie.vote_count} votes`}</div>
               <div><strong>Genres: </strong>{movieGenres.join(', ') || '-'}</div>
-              <button
-                className={`btn ${watchedClicked ? "btn-success" : "btn-outline-primary"} mr-1 mt-1`}
-                onClick={(e) => { this.handleAddMovies(e) }}
-                name="watched">
-                {watchedClicked ? "Added to Watched list" : "Add to Watched list"}
-              </button>
-              <button
-                className={`btn ${toWatchClicked ? "btn-success" : "btn-outline-primary"} mr-1 mt-1`}
-                onClick={(e) => { this.handleAddMovies(e) }}
-                name="toWatch">
-                {toWatchClicked ? "Added to Watch list" : "Add to Watch list"}
-              </button>
+              <div><strong>Voting: </strong>{`${movie.vote_average}/10, ${movie.vote_count} votes`}</div>
+              <div>
+                <button className="btn btn-link" onClick={() => this.setModalIsOpen(true, 'trailer')}>Play Trailer</button>
+              </div>
+              <div>
+                <button
+                  className={`btn ${watchedClicked ? "btn-success" : "btn-outline-primary"} mr-1 my-1`}
+                  onClick={(e) => { this.handleAddMovies(e) }}
+                  name="watched">
+                  {watchedClicked ? "Added to Watched list" : "Add to Watched list"}
+                </button>
+                <button
+                  className={`btn ${toWatchClicked ? "btn-success" : "btn-outline-primary"} mr-1 my-1`}
+                  onClick={(e) => { this.handleAddMovies(e) }}
+                  name="toWatch">
+                  {toWatchClicked ? "Added to Watch list" : "Add to Watch list"}
+                </button>
+              </div>
+              <div><strong>Overview: </strong>{movie.overview}</div>
             </div>
           </div>
-          <div>
-            <iframe width="420" height="315" title="trailer" src={`https://www.youtube.com/embed/${movieTrailerUrl}`} />
-          </div>
+        </Modal>
+        <Modal isOpen={trailerModalIsOpen} onRequestClose={() => this.setModalIsOpen(false, 'trailer')} style={trailerModalStyle}>
+          <button
+            className="btn btn-link"
+            style={{ position: 'absolute', top: '0px', right: '0px', padding: '0px' }}
+            onClick={() => this.setModalIsOpen(false, 'trailer')}>
+            X
+          </button>
+          <iframe
+            style={{ height: '85vh', width: '100%' }}
+            allowFullScreen="allowFullScreen"
+            allow="autoplay"
+            title="trailer"
+            src={`https://www.youtube.com/embed/${movieTrailerUrl}?autoplay=1`}
+          />
         </Modal>
       </div>
     );
