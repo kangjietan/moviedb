@@ -22,11 +22,4 @@
     width: 1140px;
   }
 }
-
-@media (width: 1024px) {
-  .container.watched-list-container {
-    max-width: 960px !important;
-    width: 960px;
-  }
-}
 /* #Media queries */
