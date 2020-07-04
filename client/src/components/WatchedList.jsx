@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
+import MediaQuery from 'react-responsive'
 
 import WatchedMovie from './movies/WatchedMovie.jsx';
+import MobileWatchedMovie from './movies/MobileWatchedMovie.jsx';
 
 import { connect } from 'react-redux';
 
@@ -65,22 +67,38 @@ const GenresColumn = styled.div`
 
 function WatchedList({ watchedList }) {
   let movies = Object.keys(watchedList);
+
   return (
-    <WatchedListContainer className="container">
-      <WatchedHeadingContainer>
-        <h2>Watched</h2>
-      </WatchedHeadingContainer>
-      <ColumnContainer>
-        <ImageColumn>Image</ImageColumn>
-        <TitleColumn>Title</TitleColumn>
-        <OverviewColumn>Overview</OverviewColumn>
-        <GenresColumn>Genres</GenresColumn>
-      </ColumnContainer>
-      <WatchedContentContainer>
-        {movies.map((id) => <WatchedMovie key={id} movie={watchedList[id]} />)}
-      </WatchedContentContainer>
-    </WatchedListContainer>
+    <div>
+      <MediaQuery minDeviceWidth={1140}>
+        <div className="container watched-list-container">
+          <WatchedListContainer>
+            <WatchedHeadingContainer>
+              <h2>Watched</h2>
+            </WatchedHeadingContainer>
+            <ColumnContainer>
+              <ImageColumn>Image</ImageColumn>
+              <TitleColumn>Title</TitleColumn>
+              <OverviewColumn>Overview</OverviewColumn>
+              <GenresColumn>Genres</GenresColumn>
+            </ColumnContainer>
+            <WatchedContentContainer>
+              {movies.map((id) => <WatchedMovie key={id} movie={watchedList[id]} />)}
+            </WatchedContentContainer>
+          </WatchedListContainer>
+        </div>
+      </MediaQuery>
+      <MediaQuery maxDeviceWidth={1139}>
+        <div className="d-flex flex-row flex-wrap justify-content-center">
+          {movies.map((id) => <MobileWatchedMovie key={id} movie={watchedList[id]} />)}
+        </div>
+      </MediaQuery>
+    </div >
   );
+}
+
+WatchedList.propTypes = {
+  watchedList: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
