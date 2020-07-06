@@ -65,7 +65,7 @@ class ResultMovie extends Component {
 
   handleAddMovies(event) {
     const { name } = event.target;
-    const { watchedClicked, toWatchClicked } = this.state;
+    const { watchedClicked, toWatchClicked, movieTrailerUrl } = this.state;
     const { addWatchedMovie, addToWatchMovie, removeWatchedMovie, removeToWatchMovie, movie } = this.props;
 
     if (name === 'watched') {
@@ -74,7 +74,7 @@ class ResultMovie extends Component {
         this.setWatchedClicked(false);
       } else {
         removeToWatchMovie(movie);
-        addWatchedMovie(movie);
+        addWatchedMovie(Object.assign(movie, { movieTrailerUrl }));
         this.setWatchedClicked(true);
         this.setToWatchClicked(false);
       }
@@ -84,7 +84,7 @@ class ResultMovie extends Component {
         this.setToWatchClicked(false);
       } else {
         removeWatchedMovie(movie);
-        addToWatchMovie(movie);
+        addToWatchMovie(Object.assign(movie, { movieTrailerUrl }));
         this.setToWatchClicked(true);
         this.setWatchedClicked(false);
       }
