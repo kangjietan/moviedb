@@ -119,7 +119,7 @@ class ResultMovie extends Component {
         borderRadius: '4px',
         outline: 'none',
         padding: '20px',
-        fontSize: '1.3rem'
+        fontSize: '1.25rem'
       }
     };
 
