@@ -1,5 +1,5 @@
 /* Media queries */
-@media (max-width: 990px) {
+@media (max-width: 1140px) {
   #modal-content {
     flex-direction: column !important;
     justify-content: center;
