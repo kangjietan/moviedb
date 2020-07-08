@@ -65,7 +65,7 @@ const GenresColumn = styled.div`
   margin: 2px 10px;
 `;
 
-function WatchedList({ watchedList }) {
+function WatchedList({ watchedList, genres }) {
   let movies = Object.keys(watchedList);
 
   return (
@@ -83,14 +83,14 @@ function WatchedList({ watchedList }) {
               <GenresColumn>Genres</GenresColumn>
             </ColumnContainer>
             <WatchedContentContainer>
-              {movies.map((id) => <WatchedMovie key={id} movie={watchedList[id]} />)}
+              {movies.map((id) => <WatchedMovie key={id} movie={watchedList[id]} genres={genres} />)}
             </WatchedContentContainer>
           </WatchedListContainer>
         </div>
       </MediaQuery>
       <MediaQuery maxDeviceWidth={1139}>
         <div className="d-flex flex-row flex-wrap justify-content-center">
-          {movies.map((id) => <MobileWatchedMovie key={id} movie={watchedList[id]} />)}
+          {movies.map((id) => <MobileWatchedMovie key={id} movie={watchedList[id]} genres={genres} />)}
         </div>
       </MediaQuery>
     </div >
@@ -99,10 +99,12 @@ function WatchedList({ watchedList }) {
 
 WatchedList.propTypes = {
   watchedList: PropTypes.object.isRequired,
+  genres: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-  watchedList: state.movie.watchedList
+  watchedList: state.movie.watchedList,
+  genres: state.search.genres,
 });
 
 export default connect(mapStateToProps, null)(WatchedList);
