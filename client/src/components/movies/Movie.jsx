@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import WatchedListModal from './modal/WatchedListModal.jsx';
+import MovieModal from './modal/MovieModal.jsx';
 
 const MovieContainer = styled.div`
   display: flex;
@@ -40,7 +40,7 @@ const MovieOverviewContainer = styled.div`
   margin: auto;
 `;
 
-function WatchedMovie({ movie, genres }) {
+function Movie({ movie, genres, component }) {
   const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : "./no-image.jpg";
 
   const [contentModalIsOpen, setContentModalIsOpen] = useState(false);
@@ -63,20 +63,21 @@ function WatchedMovie({ movie, genres }) {
           {movieGenres.map((genre, idx) => <div key={idx}>{genre}</div>)}
         </MovieGenreContainer>
       </MovieContainer>
-      <WatchedListModal
+      <MovieModal
         imageUrl={imageUrl}
         movieGenres={movieGenres}
         movie={movie}
         contentModalIsOpen={contentModalIsOpen}
         setContentModalIsOpen={setContentModalIsOpen}
+        component={component}
       />
     </div>
   );
 }
 
-WatchedMovie.propTypes = {
+Movie.propTypes = {
   movie: PropTypes.object.isRequired,
   genres: PropTypes.object.isRequired,
 }
 
-export default WatchedMovie;
+export default Movie;

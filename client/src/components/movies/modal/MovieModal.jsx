@@ -6,9 +6,9 @@ import Modal from 'react-modal';
 import TrailerModal from './TrailerModal.jsx';
 
 import { connect } from 'react-redux';
-import { removeWatchedMovie, addWatchedMovie } from '../../../actions/movieActions.js';
+import { removeWatchedMovie, addWatchedMovie, removeToWatchMovie, addToWatchMovie } from '../../../actions/movieActions.js';
 
-function WatchedListModal(props) {
+function MovieModal(props) {
   const {
     imageUrl,
     movieGenres,
@@ -16,19 +16,33 @@ function WatchedListModal(props) {
     contentModalIsOpen,
     setContentModalIsOpen,
     addWatchedMovie,
-    removeWatchedMovie
+    removeWatchedMovie,
+    removeToWatchMovie,
+    addToWatchMovie,
+    component
   } = props;
 
   const [trailerModalIsOpen, setTrailerModalIsOpen] = useState(false);
   const [movieRemoved, setMovieRemoved] = useState(false);
 
   const handleRemoveMovie = () => {
-    if (movieRemoved) {
-      addWatchedMovie(movie);
-      setMovieRemoved(false);
-    } else {
-      removeWatchedMovie(movie);
-      setMovieRemoved(true);
+    if (component === "watched") {
+      if (movieRemoved) {
+        addWatchedMovie(movie);
+        setMovieRemoved(false);
+      } else {
+        removeWatchedMovie(movie);
+        setMovieRemoved(true);
+      }
+    } else if (component === "toWatch") {
+      console.log("Here");
+      if (movieRemoved) {
+        addToWatchMovie(movie);
+        setMovieRemoved(false);
+      } else {
+        removeToWatchMovie(movie);
+        setMovieRemoved(true);
+      }
     }
   }
 
@@ -96,7 +110,7 @@ function WatchedListModal(props) {
   );
 }
 
-WatchedListModal.propTypes = {
+MovieModal.propTypes = {
   movie: PropTypes.object.isRequired,
   imageUrl: PropTypes.string.isRequired,
   movieGenres: PropTypes.array.isRequired,
@@ -104,6 +118,6 @@ WatchedListModal.propTypes = {
   setContentModalIsOpen: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = { removeWatchedMovie, addWatchedMovie };
+const mapDispatchToProps = { removeWatchedMovie, addWatchedMovie, removeToWatchMovie, addToWatchMovie };
 
-export default connect(null, mapDispatchToProps)(WatchedListModal);
+export default connect(null, mapDispatchToProps)(MovieModal);
