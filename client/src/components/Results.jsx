@@ -10,7 +10,7 @@ function Results(props) {
   return (
     <div className="container">
       <h2 className="m-2">{`Results for ${props.searchInput}`}</h2>
-      <div className="d-flex flex-row flex-wrap justify-content-between">
+      <div className="d-flex flex-row flex-wrap justify-content-between results-container">
         {results.map((movie) => <ResultMovie movie={movie} key={movie.id} />)}
       </div>
     </div>

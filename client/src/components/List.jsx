@@ -87,7 +87,7 @@ function List({ list, genres, component }) {
         </div>
       </MediaQuery>
       <MediaQuery maxDeviceWidth={1139}>
-        <div className="d-flex flex-row flex-wrap justify-content-between">
+        <div className="d-flex flex-row flex-wrap justify-content-between mobile-list-container">
           {movies.map((id) => <MobileMovie key={id} movie={list[id]} genres={genres} component={component} />)}
         </div>
       </MediaQuery>

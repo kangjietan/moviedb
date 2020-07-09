@@ -7,6 +7,10 @@
     font-size: 0.75em;
   }
 
+  .mobile-list-container {
+    justify-content: center !important;
+  }
+
   .modal-image {
     width: 45% !important;
   }
@@ -20,6 +24,12 @@
   .container.watched-list-container {
     max-width: 1140px !important;
     width: 1140px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .results-container {
+    justify-content: center !important;
   }
 }
 /* #Media queries */
