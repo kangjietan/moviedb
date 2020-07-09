@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { connect } from 'react-redux';
@@ -11,9 +12,14 @@ import ToWatchList from './ToWatchList.jsx';
 import Results from './Results.jsx'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     this.props.genresFromAPI();
   }
+
   render() {
     return (
       <Router>
@@ -29,6 +35,10 @@ class App extends Component {
       </Router>
     );
   }
+}
+
+App.propTypes = {
+  genresFromAPI: PropTypes.func.isRequired,
 }
 
 const mapDispatchToProps = { genresFromAPI };
