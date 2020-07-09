@@ -46,3 +46,19 @@ export const genresFromAPI = () => (dispatch) => {
       console.log(err);
     });
 };
+
+export const popularMoviesFromAPI = (page = 1) => (dispatch) => {
+  axios
+    .get(`${serverUrl}/tmdb/search`, {
+      params: { page },
+    })
+    .then((response) => {
+      dispatch({
+        type: actions.GET_POPULAR_MOVIES_FROM_API,
+        payload: response.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
