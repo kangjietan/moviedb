@@ -6,9 +6,31 @@ import Modal from 'react-modal';
 import TrailerModal from './TrailerModal.jsx';
 
 import { connect } from 'react-redux';
+import { removeWatchedMovie, addWatchedMovie } from '../../../actions/movieActions.js';
 
-function WatchedListModal({ imageUrl, movieGenres, movie, contentModalIsOpen, setContentModalIsOpen }) {
+function WatchedListModal(props) {
+  const {
+    imageUrl,
+    movieGenres,
+    movie,
+    contentModalIsOpen,
+    setContentModalIsOpen,
+    addWatchedMovie,
+    removeWatchedMovie
+  } = props;
+
   const [trailerModalIsOpen, setTrailerModalIsOpen] = useState(false);
+  const [movieRemoved, setMovieRemoved] = useState(false);
+
+  const handleRemoveMovie = () => {
+    if (movieRemoved) {
+      addWatchedMovie(movie);
+      setMovieRemoved(false);
+    } else {
+      removeWatchedMovie(movie);
+      setMovieRemoved(true);
+    }
+  }
 
   const contentModalStyle = {
     overlay: {
@@ -56,6 +78,11 @@ function WatchedListModal({ imageUrl, movieGenres, movie, contentModalIsOpen, se
             <div>
               <button className="btn btn-link" onClick={() => setTrailerModalIsOpen(true)}>Play Trailer</button>
             </div>
+            <div>
+              <button className={`btn ${movieRemoved ? "btn-success" : "btn-outline-primary"}`} onClick={handleRemoveMovie}>
+                {movieRemoved ? "Undo" : "Remove from list"}
+              </button>
+            </div>
             <div><strong>Overview: </strong>{movie.overview}</div>
           </div>
         </div>
@@ -77,6 +104,6 @@ WatchedListModal.propTypes = {
   setContentModalIsOpen: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { removeWatchedMovie, addWatchedMovie };
 
-export default connect()(WatchedListModal);
+export default connect(null, mapDispatchToProps)(WatchedListModal);
