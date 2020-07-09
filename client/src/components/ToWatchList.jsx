@@ -1,11 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function ToWatchList() {
+import List from './List.jsx';
+
+import { connect } from 'react-redux';
+
+function ToWatchList({ toWatchList, genres }) {
   return (
     <div>
-      <h1>ToWatchList Page</h1>
-    </div>
+      <List list={toWatchList} genres={genres} component="toWatch" />
+    </div >
   );
 }
 
-export default ToWatchList;
+ToWatchList.propTypes = {
+  toWatchList: PropTypes.object.isRequired,
+  genres: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = state => ({
+  toWatchList: state.movie.toWatchList,
+  genres: state.search.genres,
+});
+
+export default connect(mapStateToProps, null)(ToWatchList);
