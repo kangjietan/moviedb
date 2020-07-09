@@ -51,6 +51,18 @@ app.get("/tmbd/movie/:id/trailer", (req, res) => {
     });
 });
 
+app.get("/tmdb/movie/popular/", (req, res) => {
+  const { page } = req.params;
+  tmdb
+    .getPopularMovies(page)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
