@@ -127,10 +127,10 @@ class ResultMovie extends Component {
 
     return (
       <div>
-        <div className="card m-3" style={{ width: '18rem', cursor: 'pointer' }} onClick={() => this.setModalIsOpen(true, 'content')}>
-          <img src={imageUrl} className="card-img-top" />
-          <div className="card-body">
-            <h4 className="card-title">{movie.title}</h4>
+        <div className="card m-3" style={{ width: '18rem', height: "32rem", cursor: 'pointer' }} onClick={() => this.setModalIsOpen(true, 'content')}>
+          <img src={imageUrl} className="card-img-top" style={{ height: "26rem" }} />
+          <div className="card-body" style={{ overflow: "auto" }}>
+            <h5 className="card-title">{movie.title}</h5>
           </div>
         </div>
         <Modal isOpen={contentModalIsOpen} onRequestClose={() => this.setModalIsOpen(false, 'content')} style={contentModalStyle}>
