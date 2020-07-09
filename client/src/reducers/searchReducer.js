@@ -2,8 +2,9 @@ import * as actions from "../actions/types.js";
 
 let initialState = {
   searchInput: "",
-  searchResults: [],
+  searchResults: {},
   genres: {},
+  popularMovieResults: {},
 };
 
 export default function (state = initialState, action) {
@@ -24,6 +25,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         genres: action.payload,
+      };
+
+    case actions.GET_POPULAR_MOVIES_FROM_API:
+      return {
+        ...state,
+        popularMovieResults: action.payload,
       };
 
     default:
