@@ -18,7 +18,7 @@ function Results(props) {
 }
 
 Results.propTypes = {
-  searchResults: PropTypes.array.isRequired,
+  searchResults: PropTypes.object.isRequired,
   searchInput: PropTypes.string.isRequired,
 };
 
