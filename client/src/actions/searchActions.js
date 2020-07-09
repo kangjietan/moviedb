@@ -49,7 +49,7 @@ export const genresFromAPI = () => (dispatch) => {
 
 export const popularMoviesFromAPI = (page = 1) => (dispatch) => {
   axios
-    .get(`${serverUrl}/tmdb/search`, {
+    .get(`${serverUrl}/tmdb/movie/popular/`, {
       params: { page },
     })
     .then((response) => {
