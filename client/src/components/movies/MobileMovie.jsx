@@ -11,10 +11,10 @@ function MobileMovie({ movie, genres, component }) {
 
   return (
     <div>
-      <div className="card m-3" style={{ width: '12rem', cursor: 'pointer' }} onClick={() => { setContentModalIsOpen(true); }}>
-        <img src={imageUrl} className="card-img-top" />
-        <div className="card-body">
-          <h4 className="card-title">{movie.title}</h4>
+      <div className="card m-3" style={{ width: '14rem', height: "25rem", cursor: 'pointer' }} onClick={() => { setContentModalIsOpen(true); }}>
+        <img src={imageUrl} className="card-img-top" style={{ height: "19rem" }} />
+        <div className="card-body" style={{ overflow: "auto" }}>
+          <h5 className="card-title">{movie.title}</h5>
         </div>
       </div>
       <MovieModal
