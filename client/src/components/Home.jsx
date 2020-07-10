@@ -1,11 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function Home() {
+import PopularMovies from './homepage/PopularMovies';
+
+import { connect } from 'react-redux';
+
+function Home({ popularMovieResults }) {
   return (
-    <div>
-      <h1>Home Page</h1>
+    <div className="container">
+      <PopularMovies popularMovieList={popularMovieResults.results} />
     </div>
   );
 }
 
-export default Home;
+Home.propTypes = {
+
+};
+
+const mapStateToProps = state => ({
+  popularMovieResults: state.search.popularMovieResults,
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
