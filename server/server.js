@@ -2,7 +2,7 @@ const express = require("express");
 
 const path = require("path");
 
-const tmdb = require("../api/searchTmdb.js");
+const tmdb = require("../api/searchTmdb");
 
 const app = express();
 

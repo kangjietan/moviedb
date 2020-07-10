@@ -1,4 +1,4 @@
-import * as actions from "../actions/types.js";
+import * as actions from "../actions/types";
 
 export const addWatchedMovie = (movie) => (dispatch) => {
   dispatch({

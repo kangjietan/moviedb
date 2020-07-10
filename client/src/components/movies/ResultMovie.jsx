@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
-import { addWatchedMovie, addToWatchMovie, removeWatchedMovie, removeToWatchMovie } from '../../actions/movieActions.js';
+import { addWatchedMovie, addToWatchMovie, removeWatchedMovie, removeToWatchMovie } from '../../actions/movieActions';
 
 Modal.setAppElement('#app');
 

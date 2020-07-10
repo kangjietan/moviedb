@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { connect } from 'react-redux';
-import { genresFromAPI, popularMoviesFromAPI } from '../actions/searchActions.js';
+import { genresFromAPI, popularMoviesFromAPI } from '../actions/searchActions';
 
 import Navigation from './Navigation';
 import Home from './Home';

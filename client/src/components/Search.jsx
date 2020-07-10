@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { updateSearch, searchAPI } from '../actions/searchActions.js';
+import { updateSearch, searchAPI } from '../actions/searchActions';
 
 const Form = styled.form`
 `;

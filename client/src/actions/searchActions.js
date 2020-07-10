@@ -1,4 +1,4 @@
-import * as actions from "../actions/types.js";
+import * as actions from "../actions/types";
 import axios from "axios";
 
 const serverUrl = "http://localhost:3000";
