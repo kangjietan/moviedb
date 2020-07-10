@@ -5,11 +5,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from 'react-redux';
 import { genresFromAPI, popularMoviesFromAPI } from '../actions/searchActions.js';
 
-import Navigation from './Navigation.jsx';
-import Home from './Home.jsx';
-import WatchedList from './WatchedList.jsx';
-import ToWatchList from './ToWatchList.jsx';
-import Results from './Results.jsx'
+import Navigation from './Navigation';
+import Home from './Home';
+import WatchedList from './WatchedList';
+import ToWatchList from './ToWatchList';
+import Results from './Results';
 
 class App extends Component {
   constructor(props) {
