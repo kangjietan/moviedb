@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import MovieModal from './modal/MovieModal.jsx';
+import MovieModal from './modal/MovieModal';
 
 function MobileMovie({ movie, genres, component }) {
   const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : "./no-image.jpg";

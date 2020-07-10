@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Link, NavLink } from "react-router-dom";
 
-import Search from './Search.jsx';
+import Search from './Search';
 
 const NavigationContainer = styled.div`
   background-color: #343a40;

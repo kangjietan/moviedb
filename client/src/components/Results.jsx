@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import ResultMovie from './movies/ResultMovie.jsx';
+import ResultMovie from './movies/ResultMovie';
 
 function Results(props) {
   const results = props.searchResults.results || [];

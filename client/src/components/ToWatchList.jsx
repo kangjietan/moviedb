@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import List from './List.jsx';
+import List from './List';
 
 import { connect } from 'react-redux';
 

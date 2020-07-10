@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import TrailerModal from './modal/TrailerModal.jsx';
+import TrailerModal from './modal/TrailerModal';
 
 import Modal from 'react-modal';
 import axios from 'axios';

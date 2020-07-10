@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Modal from 'react-modal';
 
-import TrailerModal from './TrailerModal.jsx';
+import TrailerModal from './TrailerModal';
 
 import { connect } from 'react-redux';
 import { removeWatchedMovie, addWatchedMovie, removeToWatchMovie, addToWatchMovie } from '../../../actions/movieActions.js';

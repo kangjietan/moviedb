@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import MovieModal from './modal/MovieModal.jsx';
+import MovieModal from './modal/MovieModal';
 
 const MovieContainer = styled.div`
   display: flex;

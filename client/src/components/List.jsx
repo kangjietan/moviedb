@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import MediaQuery from 'react-responsive';
 
-import Movie from './movies/Movie.jsx';
-import MobileMovie from './movies/MobileMovie.jsx';
+import Movie from './movies/Movie';
+import MobileMovie from './movies/MobileMovie';
 
 const WatchedListContainer = styled.div`
   border: 0.5px solid;
