@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { connect } from 'react-redux';
-import { genresFromAPI, popularMoviesFromAPI } from '../actions/searchActions';
+import { genresFromAPI, popularMoviesFromAPI, trendingDayMoviesFromAPI, trendingWeekMoviesFromAPI } from '../actions/searchActions';
 
 import Navigation from './Navigation';
 import Home from './Home';
@@ -17,8 +17,11 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // Redux
     this.props.genresFromAPI();
     this.props.popularMoviesFromAPI();
+    this.props.trendingDayMoviesFromAPI();
+    this.props.trendingWeekMoviesFromAPI();
   }
 
   render() {
@@ -42,6 +45,6 @@ App.propTypes = {
   genresFromAPI: PropTypes.func.isRequired,
 }
 
-const mapDispatchToProps = { genresFromAPI, popularMoviesFromAPI };
+const mapDispatchToProps = { genresFromAPI, popularMoviesFromAPI, trendingDayMoviesFromAPI, trendingWeekMoviesFromAPI };
 
 export default connect(null, mapDispatchToProps)(App);
