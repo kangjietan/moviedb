@@ -5,6 +5,8 @@ let initialState = {
   searchResults: {},
   genres: {},
   popularMovieResults: {},
+  dayTrendingResults: {},
+  weekTrendingResults: {},
 };
 
 export default function (state = initialState, action) {
@@ -31,6 +33,18 @@ export default function (state = initialState, action) {
       return {
         ...state,
         popularMovieResults: action.payload,
+      };
+
+    case actions.GET_DAY_TRENDING_MOVIES_FROM_API:
+      return {
+        ...state,
+        dayTrendingResults: action.payload,
+      };
+
+    case actions.GET_WEEK_TRENDING_MOVIES_FROM_API:
+      return {
+        ...state,
+        weekTrendingResults: action.payload,
       };
 
     default:
