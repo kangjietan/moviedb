@@ -62,3 +62,31 @@ export const popularMoviesFromAPI = (page = 1) => (dispatch) => {
       console.log(err);
     });
 };
+
+export const trendingDayMoviesFromAPI = () => (dispatch) => {
+  axios
+    .get(`${serverUrl}/tmdb/movie/trending/day`)
+    .then((response) => {
+      dispatch({
+        type: actions.GET_DAY_TRENDING_MOVIES_FROM_API,
+        payload: response.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const trendingWeekMoviesFromAPI = () => (dispatch) => {
+  axios
+    .get(`${serverUrl}/tmdb/movie/trending/week`)
+    .then((response) => {
+      dispatch({
+        type: actions.GET_WEEK_TRENDING_MOVIES_FROM_API,
+        payload: response.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
