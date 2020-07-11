@@ -63,6 +63,28 @@ app.get("/tmdb/movie/popular/", (req, res) => {
     });
 });
 
+app.get("/tmdb/movie/trending/day", (req, res) => {
+  tmdb
+    .getDayTrendingMovies()
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+app.get("/tmdb/movie/trending/week", (req, res) => {
+  tmdb
+    .getWeekTrendingMovies()
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
