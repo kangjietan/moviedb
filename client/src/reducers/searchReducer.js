@@ -4,9 +4,9 @@ let initialState = {
   searchInput: "",
   searchResults: {},
   genres: {},
-  popularMovieResults: {},
-  dayTrendingResults: {},
-  weekTrendingResults: {},
+  popularMoviesResult: {},
+  dayTrendingMoviesResult: {},
+  weekTrendingMoviesResult: {},
 };
 
 export default function (state = initialState, action) {
