@@ -32,19 +32,19 @@ export default function (state = initialState, action) {
     case actions.GET_POPULAR_MOVIES_FROM_API:
       return {
         ...state,
-        popularMovieResults: action.payload,
+        popularMoviesResult: action.payload,
       };
 
     case actions.GET_DAY_TRENDING_MOVIES_FROM_API:
       return {
         ...state,
-        dayTrendingResults: action.payload,
+        dayTrendingMoviesResult: action.payload,
       };
 
     case actions.GET_WEEK_TRENDING_MOVIES_FROM_API:
       return {
         ...state,
-        weekTrendingResults: action.payload,
+        weekTrendingMoviesResult: action.payload,
       };
 
     default:
