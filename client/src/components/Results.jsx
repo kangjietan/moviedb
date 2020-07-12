@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 
 import ResultMovie from './movies/ResultMovie';
 
-function Results(props) {
-  const results = props.searchResults.results || [];
+function Results({ searchResults, searchInput, genres }) {
+  const results = searchResults.results || [];
   return (
     <div className="container">
-      <h2 className="m-2">{`Results for ${props.searchInput}`}</h2>
+      <h2 className="m-2">{`Results for ${searchInput}`}</h2>
       <div className="d-flex flex-row flex-wrap justify-content-between results-container">
         {results.map((movie) => <ResultMovie movie={movie} key={movie.id} genres={genres} />)}
       </div>
