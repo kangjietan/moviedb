@@ -6,11 +6,11 @@ import TrendingMovies from './homepage/TrendingMovies';
 
 import { connect } from 'react-redux';
 
-function Home({ popularMoviesResult, dayTrendingMoviesResult }) {
+function Home({ popularMoviesResult, dayTrendingMoviesResult, genres }) {
   return (
     <div className="container">
-      <PopularMovies popularMovieList={popularMoviesResult.results} />
-      <TrendingMovies dayTrendingMoviesList={dayTrendingMoviesResult.results} />
+      <PopularMovies popularMovieList={popularMoviesResult.results} genres={genres} />
+      <TrendingMovies dayTrendingMoviesList={dayTrendingMoviesResult.results} genres={genres} />
     </div>
   );
 }
@@ -23,6 +23,7 @@ Home.propTypes = {
 const mapStateToProps = state => ({
   popularMoviesResult: state.search.popularMoviesResult,
   dayTrendingMoviesResult: state.search.dayTrendingMoviesResult,
+  genres: state.search.genres,
 });
 
 const mapDispatchToProps = {};
