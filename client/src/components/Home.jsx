@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import PopularMovies from './homepage/PopularMovies';
@@ -7,12 +7,22 @@ import TrendingMovies from './homepage/TrendingMovies';
 import { connect } from 'react-redux';
 
 function Home({ popularMoviesResult, dayTrendingMoviesResult, weekTrendingMoviesResult, genres }) {
+  const [showWeekTrendingMovies, setShowWeekTrendingMovies] = useState(false);
+
+  let list;
+  if (showWeekTrendingMovies) {
+    list = weekTrendingMoviesResult.results ? weekTrendingMoviesResult.results : [];
+  } else {
+    list = dayTrendingMoviesResult.results ? dayTrendingMoviesResult.results : [];
+  }
+
   return (
     <div className="container">
       <PopularMovies popularMovieList={popularMoviesResult.results} genres={genres} />
       <TrendingMovies
-        dayTrendingMoviesList={dayTrendingMoviesResult.results}
-        weekTrendingMoviesList={weekTrendingMoviesResult.results}
+        list={list}
+        showWeekTrendingMovies={showWeekTrendingMovies}
+        setShowWeekTrendingMovies={setShowWeekTrendingMovies}
         genres={genres}
       />
     </div>
