@@ -188,12 +188,12 @@ ResultMovie.propTypes = {
   removeToWatchMovie: PropTypes.func.isRequired,
   watchList: PropTypes.object.isRequired,
   toWatchList: PropTypes.object.isRequired,
+  genres: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   watchList: state.movie.watchedList,
   toWatchList: state.movie.toWatchList,
-  genres: state.search.genres,
 });
 
 const mapDispatchToProps = { addWatchedMovie, addToWatchMovie, removeWatchedMovie, removeToWatchMovie };
