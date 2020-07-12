@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function HomePageMovie({ list }) {
-  return (
-    <div className="carousel-item active" style={{ height: "30vh", display: "flex", overflow: "auto" }}>
-      {list.map((movie) => {
-        const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : "./no-image.jpg";
+import ResultMovie from '../movies/ResultMovie';
 
-        return <img src={imageUrl} className="d-block img-fluid" style={{ height: "100%" }} />
-      })}
+function HomePageMovie({ list, genres }) {
+  return (
+    <div style={{ height: "100%", display: "flex", overflow: "auto" }}>
+      {list.map((movie) => <ResultMovie movie={movie} genres={genres} />)}
     </div>
   );
 }
 
-HomePageMovie.propTypes = {};
+HomePageMovie.propTypes = {
+  list: PropTypes.array.isRequired,
+  genres: PropTypes.object.isRequired,
+};
 
 export default HomePageMovie;
