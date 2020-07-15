@@ -11,7 +11,6 @@ const searchMovies = (query) => {
     method: "GET",
     headers: {
       Authorization: TMDB_API_KEY,
-      "X-Requested-With": "XMLHttpRequest",
     },
     url,
   };
@@ -34,7 +33,6 @@ const getGenres = () => {
     method: "GET",
     headers: {
       Authorization: TMDB_API_KEY,
-      "X-Requested-With": "XMLHttpRequest",
     },
     url,
   };
@@ -57,7 +55,6 @@ const getTrailer = (movieID) => {
     method: "GET",
     headers: {
       Authorization: TMDB_API_KEY,
-      "X-Requested-With": "XMLHttpRequest",
     },
     url,
   };
@@ -80,7 +77,6 @@ const getPopularMovies = (page) => {
     method: "GET",
     headers: {
       Authorization: TMDB_API_KEY,
-      "X-Requested-With": "XMLHttpRequest",
     },
     url,
   };
@@ -103,7 +99,6 @@ const getDayTrendingMovies = () => {
     method: "GET",
     headers: {
       Authorization: TMDB_API_KEY,
-      "X-Requested-With": "XMLHttpRequest",
     },
     url,
   };
@@ -126,7 +121,6 @@ const getWeekTrendingMovies = () => {
     method: "GET",
     headers: {
       Authorization: TMDB_API_KEY,
-      "X-Requested-With": "XMLHttpRequest",
     },
     url,
   };
