@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
 /* Media queries */
 @media (max-width: 1140px) {
   #modal-content {
