@@ -9,22 +9,24 @@ module.exports = {
     register: (req, res) => {
       const { username, password, password2 } = req.body;
       let data = { errors: [] };
-    
+
       // Check required fields
       if (!username || !password || !password2) {
         data.errors.push({ msg: "Please fill in all fields" });
       }
-    
+
       // Check passwords match
       if (password !== password2) {
         data.errors.push({ msg: "Passwords do not match" });
       }
-    
+
       // Check password length
       if (password.length < 6) {
-        data.errors.push({ msg: "Password should be at least 6 characters long" });
+        data.errors.push({
+          msg: "Password should be at least 6 characters long",
+        });
       }
-    
+
       if (data.errors.length > 0) {
         res.json(data);
       } else {
@@ -33,13 +35,16 @@ module.exports = {
             errors.push({ msg: "Username is already registered" });
             res.json(data);
           } else {
-            const newUser = new User({ username, password });
-    
+            const newUser = new User({
+              username,
+              password,
+            });
+
             // Hash password
             bcrypt.genSalt(10, (err, salt) =>
               bcrypt.hash(newUser.password, salt, (err, hash) => {
                 if (err) throw err;
-    
+
                 // Stored hashed password
                 newUser.password = hash;
                 // Save user
@@ -67,13 +72,15 @@ module.exports = {
           console.log(err);
           return next(err);
         }
-    
+
         if (!user) {
           console.log("User", user);
-          errors.push({ msg: "Login failed. Username or password is incorrect." })
+          errors.push({
+            msg: "Login failed. Username or password is incorrect.",
+          });
           return res.json(errors);
         }
-    
+
         req.login(user, (err) => {
           if (err) {
             console.log(err);
@@ -87,6 +94,6 @@ module.exports = {
     logout: (req, res) => {
       req.logout();
       res.json({ msg: "Signed out" });
-    }
-  }
-}
+    },
+  },
+};
