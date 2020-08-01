@@ -16,6 +16,7 @@ class Login extends Component {
       username: '',
       password: '',
       errors: [],
+      loggedIn: false,
     };
 
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -50,15 +51,18 @@ class Login extends Component {
         }
 
         if (response.data.success) {
-          console.log('Logged in')
+          this.setState({ loggedIn: true });
         }
       })
       .catch((error) => console.log(error));
   }
 
   render() {
-    const { username, password, errors } = this.state;
+    const { username, password, errors, loggedIn } = this.state;
     let displayErrors = errors.map(error => <DissmissableError error={error} />);
+
+    if (loggedIn) return <Redirect to="/" />;
+
     return (
       <div className="container mt-5">
         <div className="col-md-6 m-auto">
