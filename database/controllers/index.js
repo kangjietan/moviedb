@@ -83,10 +83,10 @@ module.exports = {
           return res.json(success);
         });
       })(req, res, next);
+    },
+    logout: (req, res) => {
+      req.logout();
+      res.json({ msg: "Signed out" });
     }
-  },
-  logout: (req, res) => {
-    req.logout();
-    res.json({ msg: "Signed out" });
   }
 }
