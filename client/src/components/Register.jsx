@@ -45,7 +45,7 @@ class Register extends Component {
     if (errorList.length > 0) {
       this.setState({ errors: errorList });
     } else {
-      axios.post('/register', qs.stringify(this.state))
+      axios.post('/user/register', qs.stringify(this.state))
         .then((response) => {
           console.log('Response', response);
           if (response.data.errors) {
