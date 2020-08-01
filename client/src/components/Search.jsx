@@ -37,7 +37,7 @@ class Search extends Component {
 
   render() {
     return (
-      <Form className="form-inline" >
+      <Form className="form-inline mr-4">
         <input className="form-control mr-sm-2" name="search" placeholder="Search" value={this.state.search} onChange={this.handleChange} />
         <Link to={`/search?${this.props.searchInput}`}>
           <button className="btn btn-outline-info" onClick={this.handleSearch}>Search</button>
