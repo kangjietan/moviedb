@@ -76,7 +76,7 @@ module.exports = {
           errors.push({
             msg: "Login failed. Username or password is incorrect.",
           });
-          return res.json(errors);
+          return res.json({ errors });
         }
 
         req.login(user, (err) => {
@@ -86,7 +86,7 @@ module.exports = {
           }
 
           success.push({ msg: "Login successful" });
-          return res.json(success);
+          return res.json({ success });
         });
       })(req, res, next);
     },
