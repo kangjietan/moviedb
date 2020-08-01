@@ -19,7 +19,7 @@ function Navigation() {
   return (
     <NavigationContainer>
       <div className="container">
-        <nav className="navbar navbar-expand-md navbar-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark">
           <NavHome>
             <Link to="/">
               <img src="./tmdb.svg" alt="home logo" />
@@ -38,6 +38,14 @@ function Navigation() {
               </NavLink>
             </ul>
             <Search />
+            <ul className="navbar-nav">
+              <NavLink to="/register" className="nav-item" activeStyle={{ color: "white" }}>
+                <li className="nav-link">Register</li>
+              </NavLink>
+              <NavLink to="/login" className="nav-item" activeStyle={{ color: "white" }}>
+                <li className="nav-link">Login</li>
+              </NavLink>
+            </ul>
           </div>
         </nav>
       </div>
