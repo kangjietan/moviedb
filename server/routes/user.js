@@ -5,4 +5,6 @@ const controller = require('../../database/controllers/index');
 
 router.post('/user/register', controller.user.register);
 router.post('/user/login', controller.user.login);
-router.post('/user/logout', controller.user.logout);
+router.get('/user/logout', controller.user.logout);
+
+module.exports = router;
