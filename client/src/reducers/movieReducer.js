@@ -41,6 +41,18 @@ export default function (state = initialState, action) {
         toWatchList: newToWatch,
       };
 
+    case actions.GET_USER_WATCHED_LIST:
+      return {
+        ...state,
+        watchedList: action.payload,
+      };
+
+    case actions.GET_USER_TO_WATCH_LIST:
+      return {
+        ...state,
+        toWatchList: action.payload,
+      };
+
     default:
       return state;
   }
