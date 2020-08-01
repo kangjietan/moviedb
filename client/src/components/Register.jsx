@@ -55,7 +55,6 @@ class Register extends Component {
           if (response.data.errors) {
             this.setState({ errors: response.data.errors })
           } else {
-            console.log(response.data.success);
             if (response.data.success) this.setState({ registered: true });
           }
         })
