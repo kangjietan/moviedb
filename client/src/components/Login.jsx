@@ -1,0 +1,105 @@
+import React, { Component } from 'react';
+
+import { Link, Redirect } from "react-router-dom";
+
+import axios from 'axios';
+
+import qs from 'qs';
+
+import DissmissableError from './errors/DismissableError';
+
+class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: '',
+      password: '',
+      errors: [],
+    };
+
+    this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleFormSubmission = this.handleFormSubmission.bind(this);
+  }
+
+  handleFormChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  handleFormSubmission(event) {
+    event.preventDefault();
+    this.setState({ errors: [] }, this.loginUser);
+  }
+
+  loginUser() {
+    const { username, password } = this.state;
+
+    let errorList = [];
+
+    if (!username || !password) {
+      errorList.push({ msg: "All fields must be filled out" });
+      this.setState({ errors: errorList });
+    }
+
+    axios.post('/user/login', qs.stringify(this.state))
+      .then((response) => {
+        console.log(response);
+        if (response.data.errors) {
+          this.setState({ errors: response.data.errors });
+        }
+
+        if (response.data.success) {
+          console.log('Logged in')
+        }
+      })
+      .catch((error) => console.log(error));
+  }
+
+  render() {
+    const { username, password, errors } = this.state;
+    let displayErrors = errors.map(error => <DissmissableError error={error} />);
+    return (
+      <div className="container mt-5">
+        <div className="col-md-6 m-auto">
+          <div className="card card-body">
+            <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Login</h1>
+            {displayErrors ? displayErrors : null}
+            <form onSubmit={this.handleFormSubmission}>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="name"
+                  name="username"
+                  className="form-control"
+                  placeholder="Enter username"
+                  maxLength="15"
+                  required="required"
+                  value={username}
+                  onChange={this.handleFormChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="Enter password"
+                  maxLength="20"
+                  required="required"
+                  value={password}
+                  onChange={this.handleFormChange}
+                />
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+            <p class="lead mt-4">No Account? <Link to="/register">Register</Link></p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Login;
