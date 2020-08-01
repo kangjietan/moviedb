@@ -10,6 +10,8 @@ import Home from './Home';
 import WatchedList from './WatchedList';
 import ToWatchList from './ToWatchList';
 import Results from './Results';
+import Register from './Register';
+import Login from './Login';
 
 class App extends Component {
   constructor(props) {
@@ -34,6 +36,8 @@ class App extends Component {
             <Route exact path="/watched" component={WatchedList} />
             <Route exact path="/watch-list" component={ToWatchList} />
             <Route path="/search" component={Results} />
+            <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
           </Switch>
         </div>
       </Router>
