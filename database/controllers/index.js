@@ -55,7 +55,7 @@ module.exports = {
                   )
                   .catch((err) => {
                     console.log(err);
-                    res.sendStatus(500);
+                    res.sendStatus(503);
                   });
               })
             );
@@ -67,14 +67,12 @@ module.exports = {
       let errors = [];
       let success = [];
       passport.authenticate("local", (err, user, info) => {
-        console.log("Info", info);
         if (err) {
           console.log(err);
           return next(err);
         }
 
         if (!user) {
-          console.log("User", user);
           errors.push({
             msg: "Login failed. Username or password is incorrect.",
           });
@@ -86,6 +84,7 @@ module.exports = {
             console.log(err);
             return next(err);
           }
+
           success.push({ msg: "Login successful" });
           return res.json(success);
         });
