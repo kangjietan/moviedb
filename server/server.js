@@ -12,6 +12,9 @@ const app = express();
 
 const PORT = 3000;
 
+// Passport config
+require("../config/passport")(passport);
+
 app.use(morgan("tiny"));
 
 app.use(express.urlencoded({ extended: false }));
