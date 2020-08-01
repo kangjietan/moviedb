@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 import { Link, Redirect } from "react-router-dom";
 
+import axios from 'axios';
+
+import qs from 'qs';
+
 import DissmissableError from './errors/DismissableError';
 
 class Register extends Component {
@@ -85,15 +89,44 @@ class Register extends Component {
             <form onSubmit={this.handleFormRegistration}>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
-                <input type="name" name="username" className="form-control" placeholder="Enter username" required="required" value={username} onChange={this.handleFormChange} />
+                <input
+                  type="name"
+                  name="username"
+                  className="form-control"
+                  placeholder="Enter username"
+                  maxLength="15"
+                  required="required"
+                  value={username}
+                  onChange={this.handleFormChange}
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" className="form-control" placeholder="Enter password" required="required" value={password} onChange={this.handleFormChange} />
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="Enter password"
+                  minLength="6"
+                  maxLength="20"
+                  required="required"
+                  value={password}
+                  onChange={this.handleFormChange}
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="password2">Confirm Password</label>
-                <input type="password" name="password2" className="form-control" placeholder="Confirm password" required="required" value={password2} onChange={this.handleFormChange} />
+                <input
+                  type="password"
+                  name="password2"
+                  className="form-control"
+                  placeholder="Confirm password"
+                  minLength="4"
+                  maxLength="20"
+                  required="required"
+                  value={password2}
+                  onChange={this.handleFormChange}
+                />
               </div>
               <button type="submit" class="btn btn-primary btn-block">Register</button>
             </form>
