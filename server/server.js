@@ -2,88 +2,14 @@ const express = require("express");
 
 const path = require("path");
 
-const tmdb = require("../api/searchTmdb");
-
 const app = express();
 
 const PORT = 3000;
 
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.get("/tmdb/search", (req, res) => {
-  const { query } = req.query;
-  tmdb
-    .searchMovies(query)
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.json(err);
-    });
-});
-
-app.get("/tmdb/genres", (req, res) => {
-  tmdb
-    .getGenres()
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.json(err);
-    });
-});
-
-app.get("/tmbd/movie/:id/trailer", (req, res) => {
-  const { id } = req.params;
-  tmdb
-    .getTrailer(id)
-    .then((response) => {
-      let youtubeUrl = "";
-      response.results.forEach((item) => {
-        if (item.site === "YouTube") youtubeUrl = item.key;
-      });
-      res.json(youtubeUrl);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-});
-
-app.get("/tmdb/movie/popular/", (req, res) => {
-  const { page } = req.params;
-  tmdb
-    .getPopularMovies(page)
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-});
-
-app.get("/tmdb/movie/trending/day", (req, res) => {
-  tmdb
-    .getDayTrendingMovies()
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-});
-
-app.get("/tmdb/movie/trending/week", (req, res) => {
-  tmdb
-    .getWeekTrendingMovies()
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-});
+// Routes
+app.use('/tmdb', require('./routes/tmdb'));
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
