@@ -10,4 +10,6 @@ mongoose
   .then(() => console.log("Connected to Mongo"))
   .catch((err) => console.log(err));
 
+mongoose.set("useFindAndModify", false);
+
 module.exports = mongoose;
