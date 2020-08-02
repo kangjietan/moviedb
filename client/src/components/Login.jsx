@@ -69,7 +69,7 @@ class Login extends Component {
     const { username, password, errors, loggedIn } = this.state;
     let displayErrors = errors.map(error => <DissmissableError error={error} />);
 
-    if (loggedIn) return <Redirect to="/" />;
+    if (loggedIn || this.props.userLoggedIn) return <Redirect to="/" />;
 
     return (
       <div className="container mt-5">
@@ -118,8 +118,13 @@ Login.propTypes = {
   getUserToWatchList: PropTypes.func.isRequired,
   getUserWatchedList: PropTypes.func.isRequired,
   setUserIsLoggedIn: PropTypes.func.isRequired,
+  userLoggedIn: PropTypes.bool.isRequired,
 }
+
+const mapStateToProps = state => ({
+  userLoggedIn: state.session.userLoggedIn,
+})
 
 const mapDispatchToProps = { getUserToWatchList, getUserWatchedList, setUserIsLoggedIn };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
