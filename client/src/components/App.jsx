@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { connect } from 'react-redux';
 import { genresFromAPI, popularMoviesFromAPI, trendingDayMoviesFromAPI, trendingWeekMoviesFromAPI } from '../actions/searchActions';
+import { getUserToWatchList, getUserWatchedList } from '../actions/movieActions';
+import { setUserIsLoggedIn } from '../actions/sessionActions';
 
 import axios from 'axios';
 
@@ -22,6 +24,8 @@ import Login from './Login';
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.updateUserList = this.updateUserList.bind(this);
   }
 
   componentDidMount() {
@@ -38,14 +42,26 @@ class App extends Component {
     window.removeEventListener('beforeunload', this.updateUserList);
   }
 
-  updateUserList(event) {
-    event.preventDefault();
-    event.returnValue = false;
-    axios.post("/user/watchedlist/update")
-    .then((response) => {
+  updateUserList() {
+    const { watchedList, toWatchList } = this.props;
 
-    })
-    .catch((err) => console.log(err));
+    // axios.get("/authenticated");
+    
+    let watchedListKeys = Object.keys(watchedList);
+    let toWatchListKeys = Object.keys(toWatchList);
+
+    axios.post("/user/watchedlist/update", qs.stringify(watchedListKeys))
+      .then((response) => {
+        console.log(response.config.data);
+        console.log(response.data);
+      })
+      .catch((err) => console.log(err));
+
+    axios.post("/user/towatchlist/update", qs.stringify(toWatchListKeys))
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -71,7 +87,9 @@ App.propTypes = {
   genresFromAPI: PropTypes.func.isRequired,
   popularMoviesFromAPI: PropTypes.func.isRequired,
   trendingDayMoviesFromAPI: PropTypes.func.isRequired,
-  trendingWeekMoviesFromAPI: PropTypes.func.isRequired,
+  getUserToWatchList: PropTypes.func.isRequired,
+  getUserWatchedList: PropTypes.func.isRequired,
+  setUserIsLoggedIn: PropTypes.func.isRequired,
   watchedList: PropTypes.object.isRequired,
   toWatchList: PropTypes.object.isRequired,
   userLoggedIn: PropTypes.bool.isRequired,
@@ -83,6 +101,14 @@ const mapStateToProps = state => ({
   userLoggedIn: state.session.userLoggedIn,
 });
 
-const mapDispatchToProps = { genresFromAPI, popularMoviesFromAPI, trendingDayMoviesFromAPI, trendingWeekMoviesFromAPI };
+const mapDispatchToProps = {
+  genresFromAPI,
+  popularMoviesFromAPI,
+  trendingDayMoviesFromAPI,
+  trendingWeekMoviesFromAPI,
+  getUserToWatchList,
+  getUserWatchedList,
+  setUserIsLoggedIn
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
