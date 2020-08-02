@@ -11,12 +11,14 @@ router.post("/login", controller.user.login);
 
 router.get("/logout", controller.user.logout);
 
+router.get("/authenticated", ensureAuthenticated, controller.user.isAuthenticated);
+
 router.get('/watchedlist/', ensureAuthenticated, controller.user.getUserWatchedList);
 
 router.get('/towatchlist/', ensureAuthenticated, controller.user.getUserToWatchList);
 
-// router.post('/watchedlist/update/', controller.user.updateWatchedList);
+router.post('/watchedlist/update/', ensureAuthenticated, controller.user.updateWatchedList);
 
-// router.post('/towatchlist/update/', controller.user.updateToWatchList);
+router.post('/towatchlist/update/', ensureAuthenticated, controller.user.updateToWatchList);
 
 module.exports = router;
