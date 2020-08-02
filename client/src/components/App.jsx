@@ -26,6 +26,7 @@ class App extends Component {
     super(props);
 
     this.updateUserList = this.updateUserList.bind(this);
+    this.checkUserLoggedIn = this.checkUserLoggedIn.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +35,9 @@ class App extends Component {
     this.props.popularMoviesFromAPI();
     this.props.trendingDayMoviesFromAPI();
     this.props.trendingWeekMoviesFromAPI();
+
+    // Check session
+    this.checkUserLoggedIn();
 
     window.addEventListener('beforeunload', this.updateUserList);
   }
@@ -46,23 +50,31 @@ class App extends Component {
   updateUserList() {
     const { watchedList, toWatchList } = this.props;
 
-    // axios.get("/authenticated");
-    
     let watchedListKeys = Object.keys(watchedList);
     let toWatchListKeys = Object.keys(toWatchList);
 
     axios.post("/user/watchedlist/update", qs.stringify(watchedListKeys))
       .then((response) => {
-        console.log(response.config.data);
-        console.log(response.data);
       })
       .catch((err) => console.log(err));
 
     axios.post("/user/towatchlist/update", qs.stringify(toWatchListKeys))
       .then((response) => {
-        console.log(response);
       })
       .catch((err) => console.log(err));
+  }
+
+  checkUserLoggedIn() {
+    axios.get('/user/authenticated')
+      .then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          this.props.setUserIsLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
