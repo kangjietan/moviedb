@@ -134,7 +134,7 @@ module.exports = {
 
       User.findOneAndUpdate(
         { username: req.user.username },
-        { watchedlist: movies },
+        { towatchlist: movies },
         { new: true }
       )
         .then((user) => {
