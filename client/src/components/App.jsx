@@ -35,10 +35,9 @@ class App extends Component {
     this.props.popularMoviesFromAPI();
     this.props.trendingDayMoviesFromAPI();
     this.props.trendingWeekMoviesFromAPI();
-
     // Check session
     this.checkUserLoggedIn();
-
+    // When user closes/refreshes browser
     window.addEventListener('beforeunload', this.updateUserList);
   }
 
@@ -48,20 +47,21 @@ class App extends Component {
   }
 
   updateUserList() {
-    const { watchedList, toWatchList } = this.props;
+    if (this.props.userLoggedIn) {
+      const { watchedList, toWatchList } = this.props;
+      let watchedListKeys = Object.keys(watchedList);
+      let toWatchListKeys = Object.keys(toWatchList);
 
-    let watchedListKeys = Object.keys(watchedList);
-    let toWatchListKeys = Object.keys(toWatchList);
+      if (watchedListKeys) {
+        axios.post("/user/watchedlist/update", qs.stringify(watchedListKeys))
+        .catch((err) => console.log(err));
+      }
 
-    axios.post("/user/watchedlist/update", qs.stringify(watchedListKeys))
-      .then((response) => {
-      })
-      .catch((err) => console.log(err));
-
-    axios.post("/user/towatchlist/update", qs.stringify(toWatchListKeys))
-      .then((response) => {
-      })
-      .catch((err) => console.log(err));
+      if (toWatchListKeys) {
+        axios.post("/user/towatchlist/update", qs.stringify(toWatchListKeys))
+        .catch((err) => console.log(err));
+      }
+    }
   }
 
   checkUserLoggedIn() {
@@ -70,6 +70,8 @@ class App extends Component {
         console.log(response);
         if (response.data.success) {
           this.props.setUserIsLoggedIn(true);
+          this.props.getUserWatchedList();
+          this.props.getUserToWatchList();
         }
       })
       .catch((err) => {
