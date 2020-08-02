@@ -39,6 +39,7 @@ class App extends Component {
   }
 
   componentWillUnmount() {
+    this.updateUserList();
     window.removeEventListener('beforeunload', this.updateUserList);
   }
 
