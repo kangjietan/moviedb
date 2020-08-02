@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 
+import PropTypes from 'prop-types';
+
 import { Link, Redirect } from "react-router-dom";
+
+import { connect } from 'react-redux';
+import { getUserToWatchList, getUserWatchedList } from '../actions/movieActions';
+import { setUserIsLoggedIn } from '../actions/sessionActions';
 
 import axios from 'axios';
 
@@ -45,13 +51,15 @@ class Login extends Component {
 
     axios.post('/user/login', qs.stringify(this.state))
       .then((response) => {
-        console.log(response);
         if (response.data.errors) {
           this.setState({ errors: response.data.errors });
         }
 
         if (response.data.success) {
           this.setState({ loggedIn: true });
+          this.props.setUserIsLoggedIn(true);
+          this.props.getUserWatchedList();
+          this.props.getUserToWatchList();
         }
       })
       .catch((error) => console.log(error));
@@ -106,4 +114,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  getUserToWatchList: PropTypes.func.isRequired,
+  getUserWatchedList: PropTypes.func.isRequired,
+  setUserIsLoggedIn: PropTypes.func.isRequired,
+}
+
+const mapDispatchToProps = { getUserToWatchList, getUserWatchedList, setUserIsLoggedIn };
+
+export default connect(null, mapDispatchToProps)(Login);
