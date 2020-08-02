@@ -13,8 +13,8 @@ const UserSchema = new db.Schema({
     type: Date,
     default: Date.now,
   },
-  watchedlist: Object,
-  towatchlist: Object,
+  watchedlist: [],
+  towatchlist: [],
 });
 
 const User = db.model("User", UserSchema);
