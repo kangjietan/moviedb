@@ -75,7 +75,7 @@ class Login extends Component {
       <div className="container mt-5">
         <div className="col-md-6 m-auto">
           <div className="card card-body">
-            <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Login</h1>
+            <h1 className="text-center mb-3"><i className="fas fa-sign-in-alt"></i> Login</h1>
             {displayErrors ? displayErrors : null}
             <form onSubmit={this.handleFormSubmission}>
               <div className="form-group">
@@ -104,9 +104,9 @@ class Login extends Component {
                   onChange={this.handleFormChange}
                 />
               </div>
-              <button type="submit" class="btn btn-primary btn-block">Login</button>
+              <button type="submit" className="btn btn-primary btn-block">Login</button>
             </form>
-            <p class="lead mt-4">No Account? <Link to="/register">Register</Link></p>
+            <p className="lead mt-4">No Account? <Link to="/register">Register</Link></p>
           </div>
         </div>
       </div>
