@@ -44,9 +44,11 @@ class ResultMovie extends Component {
   getYouTubeTrailer() {
     const { serverUrl } = this.state;
     const { movie } = this.props;
-    axios.get(`${serverUrl}/tmbd/movie/${movie.id}/trailer/`)
+    axios.get(`${serverUrl}/tmdb/movie/${movie.id}/trailer/`)
       .then((response) => {
-        this.setState({ movieTrailerUrl: response.data });
+        if (response.data) {
+          this.setState({ movieTrailerUrl: response.data });
+        }
       })
       .catch((err) => {
         console.log(err);
