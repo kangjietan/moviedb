@@ -95,24 +95,52 @@ module.exports = {
       res.json({ msg: "Signed out" });
     },
     getUserWatchedList: (req, res) => {
-      User.findOne({username: req.user.username})
-      .then((user) => {
-        res.json(user.watchedlist);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(503);
-      });
+      User.findOne({ username: req.user.username })
+        .then((user) => {
+          res.json(user.watchedlist);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.sendStatus(503);
+        });
     },
     getUserToWatchList: (req, res) => {
-      User.findOne({username: req.user.username})
-      .then((user) => {
-        res.json(user.towatchlist);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(503);
-      });
-    }
+      User.findOne({ username: req.user.username })
+        .then((user) => {
+          res.json(user.towatchlist);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.sendStatus(503);
+        });
+    },
+    updateWatchedList: (req, res) => {
+      let keys = Object.keys(req.body);
+      let movies = keys.map((key) => Number(req.body[key]));
+
+      User.findOneAndUpdate(
+        { username: req.user.username },
+        { watchedlist: movies },
+        { new: true }
+      )
+        .then((user) => {
+          res.sendStatus(200);
+        })
+        .catch((err) => console.log(err));
+    },
+    updateToWatchList: (req, res) => {
+      let keys = Object.keys(req.body);
+      let movies = keys.map((key) => Number(req.body[key]));
+
+      User.findOneAndUpdate(
+        { username: req.user.username },
+        { watchedlist: movies },
+        { new: true }
+      )
+        .then((user) => {
+          res.sendStatus(200);
+        })
+        .catch((err) => console.log(err));
+    },
   },
 };
