@@ -142,5 +142,8 @@ module.exports = {
         })
         .catch((err) => console.log(err));
     },
+    isAuthenticated: (req, res) => {
+      res.json({ success: { msg: "Authenticated" } });
+    },
   },
 };
