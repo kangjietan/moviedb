@@ -20,12 +20,12 @@ import Results from './Results';
 import Register from './Register';
 import Login from './Login';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.updateUserList = this.updateUserList.bind(this);
+    this.updateLists = this.updateLists.bind(this);
     this.checkUserLoggedIn = this.checkUserLoggedIn.bind(this);
   }
 
@@ -41,6 +41,13 @@ class App extends Component {
     window.addEventListener('beforeunload', this.updateUserList);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.userLoggedIn === false && prevProps.userLoggedIn === true) {
+      console.log("Logging out");
+      this.updateLists();
+    }
+  }
+
   componentWillUnmount() {
     this.updateUserList();
     window.removeEventListener('beforeunload', this.updateUserList);
@@ -48,26 +55,29 @@ class App extends Component {
 
   updateUserList() {
     if (this.props.userLoggedIn) {
-      const { watchedList, toWatchList } = this.props;
-      let watchedListKeys = Object.keys(watchedList);
-      let toWatchListKeys = Object.keys(toWatchList);
+      this.updateLists();
+    }
+  }
+  
+  updateLists() {
+    const { watchedList, toWatchList } = this.props;
+    let watchedListKeys = Object.keys(watchedList);
+    let toWatchListKeys = Object.keys(toWatchList);
 
-      if (watchedListKeys) {
-        axios.post("/user/watchedlist/update", qs.stringify(watchedListKeys))
-        .catch((err) => console.log(err));
-      }
+    if (watchedListKeys) {
+      axios.post("/user/watchedlist/update", qs.stringify(watchedListKeys))
+      .catch((err) => console.log(err));
+    }
 
-      if (toWatchListKeys) {
-        axios.post("/user/towatchlist/update", qs.stringify(toWatchListKeys))
-        .catch((err) => console.log(err));
-      }
+    if (toWatchListKeys) {
+      axios.post("/user/towatchlist/update", qs.stringify(toWatchListKeys))
+      .catch((err) => console.log(err));
     }
   }
 
   checkUserLoggedIn() {
     axios.get('/user/authenticated')
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
           this.props.setUserIsLoggedIn(true);
           this.props.getUserWatchedList();
