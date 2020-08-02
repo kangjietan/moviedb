@@ -3,6 +3,9 @@ import styled from 'styled-components';
 
 import { Link, NavLink } from "react-router-dom";
 
+import { connect } from 'react-redux';
+import { setUserIsLoggedIn } from '../actions/sessionActions';
+
 import Search from './Search';
 
 const NavigationContainer = styled.div`
@@ -15,7 +18,11 @@ const NavHome = styled.div`
   margin-right: 15px;
 `;
 
-function Navigation() {
+function Navigation(props) {
+  const logout = () => {
+    props.setUserIsLoggedIn(false);
+  }
+  
   return (
     <NavigationContainer>
       <div className="container">
@@ -42,9 +49,17 @@ function Navigation() {
               <NavLink to="/register" className="nav-item" activeStyle={{ color: "white" }}>
                 <li className="nav-link">Register</li>
               </NavLink>
-              <NavLink to="/login" className="nav-item" activeStyle={{ color: "white" }}>
-                <li className="nav-link">Login</li>
-              </NavLink>
+              {
+                props.userLoggedIn
+                ?
+                <NavLink to="/login" className="nav-item" onClick={logout} activeStyle={{ color: "white" }}>
+                  <li className="nav-link">Logout</li>
+                </NavLink>
+                :
+                <NavLink to="/login" className="nav-item" activeStyle={{ color: "white" }}>
+                  <li className="nav-link">Login</li>
+                </NavLink>
+              }
             </ul>
           </div>
         </nav>
@@ -53,4 +68,10 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+const mapStateToProps = state => ({
+  userLoggedIn: state.session.userLoggedIn,
+});
+
+const mapDispatchToProps = { setUserIsLoggedIn };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
