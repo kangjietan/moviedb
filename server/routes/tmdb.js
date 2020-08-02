@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const tmdb = require("../../api/searchTmdb");
@@ -25,6 +25,19 @@ router.get("/genres", (req, res) => {
     .catch((err) => {
       console.error(err);
       res.json(err);
+    });
+});
+
+router.get("/movie/:id", (req, res) => {
+  const { id } = req.params;
+
+  tmdb
+    .getMovieInfo(id)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      console.error(err);
     });
 });
 
