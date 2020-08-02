@@ -1,6 +1,6 @@
 import * as actions from "../actions/types";
 
-import axios from 'axios';
+import axios from "axios";
 
 const serverUrl = "http://localhost:3000";
 
@@ -33,23 +33,29 @@ export const removeToWatchMovie = (movie) => (dispatch) => {
 };
 
 export const getUserWatchedList = () => (dispatch) => {
-  axios.get(`${serverUrl}/user/watchedlist`)
-  .then((response) => {
-    dispatch({
-      type: actions.GET_USER_WATCHED_LIST,
-      payload: response.data,
-    });
-  })
-  .catch((err) => console.log(err));
-}
+  axios
+    .get(`${serverUrl}/user/watchedlist`)
+    .then((response) => {
+      if (response.data) {
+        dispatch({
+          type: actions.GET_USER_WATCHED_LIST,
+          payload: response.data,
+        });
+      }
+    })
+    .catch((err) => console.log(err));
+};
 
 export const getUserToWatchList = () => (dispatch) => {
-  axios.get(`${serverUrl}/user/towatchlist`)
-  .then((response) => {
-    dispatch({
-      type: actions.GET_USER_TO_WATCH_LIST,
-      payload: response.data,
-    });
-  })
-  .catch((err) => console.log(err));
-}
+  axios
+    .get(`${serverUrl}/user/towatchlist`)
+    .then((response) => {
+      if (response.data) {
+        dispatch({
+          type: actions.GET_USER_TO_WATCH_LIST,
+          payload: response.data,
+        });
+      }
+    })
+    .catch((err) => console.log(err));
+};
