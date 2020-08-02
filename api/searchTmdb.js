@@ -136,6 +136,28 @@ const getWeekTrendingMovies = () => {
   });
 };
 
+const getMovieInfo = (id) => {
+  const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_API_KEY}&language=en-US`;
+
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: TMDB_API_KEY,
+    },
+    url,
+  };
+
+  return new Promise((resolve, reject) => {
+    axios(options)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 module.exports = {
   searchMovies,
   getGenres,
@@ -143,4 +165,5 @@ module.exports = {
   getPopularMovies,
   getDayTrendingMovies,
   getWeekTrendingMovies,
+  getMovieInfo,
 };
