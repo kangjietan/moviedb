@@ -6,7 +6,7 @@ import ResultMovie from '../movies/ResultMovie';
 function HomePageMovie({ list, genres }) {
   return (
     <div style={{ height: "100%", display: "flex", overflow: "auto" }}>
-      {list.map((movie) => <ResultMovie movie={movie} genres={genres} />)}
+      {list.map((movie) => <ResultMovie movie={movie} genres={genres} key={movie.id} />)}
     </div>
   );
 }
