@@ -28,7 +28,7 @@ router.get("/genres", (req, res) => {
     });
 });
 
-router.get("/tmbd/movie/:id/trailer", (req, res) => {
+router.get("/movie/:id/trailer", (req, res) => {
   const { id } = req.params;
   tmdb
     .getTrailer(id)
