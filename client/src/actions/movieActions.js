@@ -39,7 +39,7 @@ export const getUserWatchedList = () => (dispatch) => {
       if (response.data) {
         dispatch({
           type: actions.GET_USER_WATCHED_LIST,
-          payload: response.data,
+          payload: getMovieListInfo(response.data),
         });
       }
     })
@@ -53,9 +53,38 @@ export const getUserToWatchList = () => (dispatch) => {
       if (response.data) {
         dispatch({
           type: actions.GET_USER_TO_WATCH_LIST,
-          payload: response.data,
+          payload: getMovieListInfo(response.data),
         });
       }
+    })
+    .catch((err) => console.log(err));
+};
+
+// Helper function
+// Format movies into correct list and keys
+const getMovieListInfo = (list) => {
+  let movieList = {};
+  list.forEach((id) => {
+    axios
+      .get(`${serverUrl}/tmdb/movie/${id}`)
+      .then((response) => {
+        let movie = response.data;
+        let movieGenres = movie.genres.map((genre) => genre.id);
+        movie["genre_ids"] = movieGenres;
+        getMovieTrailerUrl(movie, id);
+        movieList[id] = movie;
+      })
+      .catch((err) => console.log(err));
+  });
+
+  return movieList;
+};
+
+const getMovieTrailerUrl = (movie, id) => {
+  axios
+    .get(`${serverUrl}/tmdb/movie/${id}/trailer/`)
+    .then((response) => {
+      movie["movieTrailerUrl"] = response.data;
     })
     .catch((err) => console.log(err));
 };
