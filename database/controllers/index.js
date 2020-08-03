@@ -10,9 +10,16 @@ module.exports = {
       const { username, password, password2 } = req.body;
       let data = { errors: [] };
 
+      let alphanumeric = "[A-Za-z0-9]+";
+
       // Check required fields
       if (!username || !password || !password2) {
         data.errors.push({ msg: "Please fill in all fields" });
+      }
+
+      // Check for alphanumeric chars only
+      if (!username.match(alphanumeric)) {
+        data.errors.push({ msg: "Username can contain only numbers and the alphabet" });
       }
 
       // Check passwords match
@@ -32,7 +39,7 @@ module.exports = {
       } else {
         User.findOne({ username }).then((user) => {
           if (user) {
-            errors.push({ msg: "Username is already registered" });
+            data.errors.push({ msg: "Username is already registered" });
             res.json(data);
           } else {
             const newUser = new User({
