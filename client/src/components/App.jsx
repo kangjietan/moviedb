@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { connect } from 'react-redux';
 import { genresFromAPI, popularMoviesFromAPI, trendingDayMoviesFromAPI, trendingWeekMoviesFromAPI } from '../actions/searchActions';
-import { getUserToWatchList, getUserWatchedList } from '../actions/movieActions';
+import { getUserToWatchList, getUserWatchedList, clearWatchedList, clearToWatchList } from '../actions/movieActions';
 import { setUserIsLoggedIn } from '../actions/sessionActions';
 
 import axios from 'axios';
@@ -43,7 +43,6 @@ class App extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.userLoggedIn === false && prevProps.userLoggedIn === true) {
-      console.log("Logging out");
       this.updateLists();
     }
   }
@@ -58,24 +57,53 @@ class App extends Component {
       this.updateLists();
     }
   }
-  
+
   updateLists() {
-    const { watchedList, toWatchList } = this.props;
+    const { watchedList, toWatchList, userLoggedIn, clearToWatchList, clearWatchedList } = this.props;
     let watchedListKeys = Object.keys(watchedList);
     let toWatchListKeys = Object.keys(toWatchList);
 
-    if (watchedListKeys) {
-      axios.post("/user/watchedlist/update", qs.stringify(watchedListKeys))
-      .catch((err) => console.log(err));
-    }
+    // Update watched list and then clear if user is logged out
+    let promise = new Promise((resolve, reject) => {
+      if (watchedListKeys) {
+        axios.post("/user/watchedlist/update", qs.stringify(watchedListKeys))
+          .then(() => {
+            if (!userLoggedIn) {
+              clearWatchedList();
+              resolve("Done")
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    });
 
-    if (toWatchListKeys) {
-      axios.post("/user/towatchlist/update", qs.stringify(toWatchListKeys))
-      .catch((err) => console.log(err));
-    }
+    // Update to watch list and then clear if user is logged out
+    let promise2 = new Promise((resolve, reject) => {
+      if (toWatchListKeys) {
+        axios.post("/user/towatchlist/update", qs.stringify(toWatchListKeys))
+          .then(() => {
+            if (!userLoggedIn) {
+              clearToWatchList();
+              resolve("Done");
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+
+    // Wait for updating and clearing of lists before logging out
+    Promise.all([promise, promise2])
+      .then(() => {
+        if (!userLoggedIn) {
+          axios.get('/user/logout')
+            .then((response) => console.log(response))
+            .catch((err) => console.log(err));
+        }
+      })
   }
 
   checkUserLoggedIn() {
+    // If user reloads page, check session
     axios.get('/user/authenticated')
       .then((response) => {
         if (response.data.success) {
@@ -112,9 +140,12 @@ App.propTypes = {
   genresFromAPI: PropTypes.func.isRequired,
   popularMoviesFromAPI: PropTypes.func.isRequired,
   trendingDayMoviesFromAPI: PropTypes.func.isRequired,
+  trendingWeekMoviesFromAPI: PropTypes.func.isRequired,
   getUserToWatchList: PropTypes.func.isRequired,
   getUserWatchedList: PropTypes.func.isRequired,
   setUserIsLoggedIn: PropTypes.func.isRequired,
+  clearWatchedList: PropTypes.func.isRequired,
+  clearToWatchList: PropTypes.func.isRequired,
   watchedList: PropTypes.object.isRequired,
   toWatchList: PropTypes.object.isRequired,
   userLoggedIn: PropTypes.bool.isRequired,
@@ -133,7 +164,9 @@ const mapDispatchToProps = {
   trendingWeekMoviesFromAPI,
   getUserToWatchList,
   getUserWatchedList,
-  setUserIsLoggedIn
+  setUserIsLoggedIn,
+  clearWatchedList,
+  clearToWatchList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
