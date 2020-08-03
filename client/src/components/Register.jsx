@@ -33,9 +33,15 @@ class Register extends Component {
     const { username, password, password2 } = this.state;
 
     let errorList = [];
+    
+    let alphanumeric = "[A-Za-z0-9]+";
 
     if (!username || !password || !password2) {
       errorList.push({ msg: "All fields must be filled out" });
+    }
+
+    if (!username.match(alphanumeric)) {
+      errorList.push({ msg: "Username can contain only numbers and the alphabet" })
     }
 
     if (password !== password2) {
@@ -81,10 +87,12 @@ class Register extends Component {
       <div className="container mt-5">
         <div className="col-md-6 m-auto">
           <div className="card card-body">
-            <h1 class="text-center mb-3">
-              <i class="fas fa-user-plus"></i> Register
+            <h1 className="text-center mb-3">
+              <i className="fas fa-user-plus"></i> Register
           </h1>
+          <div>
             {displayErrors ? displayErrors : null}
+          </div>
             <form onSubmit={this.handleFormRegistration}>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
@@ -127,7 +135,7 @@ class Register extends Component {
                   onChange={this.handleFormChange}
                 />
               </div>
-              <button type="submit" class="btn btn-primary btn-block">Register</button>
+              <button type="submit" className="btn btn-primary btn-block">Register</button>
             </form>
             <p className="lead mt-4">Have An Account? <Link to="/login">Login</Link></p>
           </div>
