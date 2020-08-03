@@ -53,6 +53,18 @@ export default function (state = initialState, action) {
         toWatchList: action.payload,
       };
 
+    case actions.CLEAR_WATCHED_LIST:
+      return {
+        ...state,
+        watchedList: {},
+      };
+
+    case actions.CLEAR_TO_WATCH_LIST:
+      return {
+        ...state,
+        toWatchList: {},
+      };
+
     default:
       return state;
   }
