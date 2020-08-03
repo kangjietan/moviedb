@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function DismissableError({ error }) {
+  const [dismiss, setDismiss] = useState(false);
+
+  if (dismiss) return null;
+  
   return (
-    <div className="alert alert-warning alert-dimissible fade show" role="alert">
+    <div className="alert alert-warning" role="alert">
       {error.msg}
-      <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+      <button type="button" className="close" onClick={() => { setDismiss(true) }} aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
