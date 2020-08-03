@@ -60,6 +60,18 @@ export const getUserToWatchList = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+export const clearWatchedList = () => (dispatch) => {
+  dispatch({
+    type: actions.CLEAR_WATCHED_LIST,
+  });
+};
+
+export const clearToWatchList = () => (dispatch) => {
+  dispatch({
+    type: actions.CLEAR_TO_WATCH_LIST,
+  });
+};
+
 // Helper function
 // Format movies into correct list and keys
 const getMovieListInfo = (list) => {
