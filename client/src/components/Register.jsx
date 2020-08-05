@@ -57,7 +57,6 @@ class Register extends Component {
     } else {
       axios.post('/user/register', qs.stringify(this.state))
         .then((response) => {
-          console.log('Response', response);
           if (response.data.errors) {
             this.setState({ errors: response.data.errors })
           } else {

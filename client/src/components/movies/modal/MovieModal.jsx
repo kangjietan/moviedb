@@ -35,7 +35,6 @@ function MovieModal(props) {
         setMovieRemoved(true);
       }
     } else if (component === "toWatch") {
-      console.log("Here");
       if (movieRemoved) {
         addToWatchMovie(movie);
         setMovieRemoved(false);
